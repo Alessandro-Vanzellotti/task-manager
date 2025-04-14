@@ -6,10 +6,20 @@ import { Task } from './Task';
 function App() {
 
   const [newTask, setNewTask] = useState<TaskType>({id: 0, text: "", isCompleted: false});
-  const [taskList, setTaskList] = useState<TaskType[]>([]);
+  //const [taskList, setTaskList] = useState<TaskType[]>([]);
+
+  const [taskList, setTaskList] = useState<TaskType[]>(() => {
+    const localValue = localStorage.getItem("ITEMS");
+    if(localValue == null) return [];
+
+    return JSON.parse(localValue);
+  });
+
+  useEffect(() => {
+    localStorage.setItem("ITEMS", JSON.stringify(taskList))
+  }, [taskList]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    event.preventDefault();
     setNewTask({id: 0, text: event.target.value, isCompleted: false});
   }
 
@@ -46,9 +56,9 @@ function App() {
   return (
     <>
       <header>
-        <h2>TaskType manager:</h2>
+        <h2>Task Manager:</h2>
         <input type="text" onChange={handleChange} name="newTask" value={newTask.text} placeholder='Type your task' id="" />
-        <input type="button" onClick={addNewTask} value="Add" />
+        <input type="button" onClick={() => addNewTask()} value="Add" />
       </header>
 
       <main>

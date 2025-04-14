@@ -8,12 +8,12 @@ type Props = {
     editTask: (item: TaskType) => void;
 };
 
-export const Task: React.FC<Props> = (props) => {
+export const Task: React.FC<Props> = ({task, toggleTask, removeTask, editTask}) => {
     return (
-        <li onClick={() => props.toggleTask(props.task.id)}>
-            <p>{props.task.text}</p>
-              <button onClick={() => props.removeTask(props.task)}>Delete</button>
-              <button onClick={() => props.editTask(props.task)}>Edit</button>
+        <li >
+            <p onClick={() => toggleTask(task.id)}>{task.text}</p>
+              <button onClick={() => removeTask(task)}>Delete</button>
+              <button onClick={() => editTask(task)}>Edit</button>
         </li>
     )
 }
