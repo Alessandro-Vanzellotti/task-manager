@@ -29,7 +29,7 @@ function App() {
     setNewTask({id: 0, text: "", isCompleted: false});
   }
 
-  /* const removeTask = (itemToRemove: TaskType) => {
+  const removeTask = (itemToRemove: TaskType) => {
     const updatedTaskList: TaskType[] = taskList.filter(item => item.text != itemToRemove.text);
     setTaskList(updatedTaskList);
   }
@@ -37,7 +37,7 @@ function App() {
   const editTask = (itemToEdit: TaskType) => {
     const taskIndex: number = taskList.findIndex(item => item.text == itemToEdit.text);
     console.log(taskIndex);
-  } */
+  }
 
   const toggleTask = (id: number) => {
     const updatedTaskList: TaskType[] = taskList.map(item => {
@@ -57,10 +57,8 @@ function App() {
   return (
     <>
       <header>
+        <h2>Task Manager:</h2>
         <NewTaskForm addNewTask={addNewTask} handleChange={handleChange} newTask={newTask} />
-        {/* <h2>Task Manager:</h2>
-        <input type="text" onChange={handleChange} name="newTask" value={newTask.text} placeholder='Type your task' id="" />
-        <input type="button" onClick={() => addNewTask()} value="Add" /> */}
       </header>
 
       <main>
@@ -70,8 +68,8 @@ function App() {
               key={task.id} 
               task={task} 
               toggleTask={toggleTask}
-              /* removeTask={removeTask} 
-              editTask={editTask} */
+              removeTask={removeTask} 
+              editTask={editTask}
               />
           )
         })}
