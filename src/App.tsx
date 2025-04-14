@@ -1,33 +1,43 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import './App.css';
-import { Task } from './interfaces/Task';
+import { Task as TaskType } from './types';
+import { Task } from './Task';
 
 function App() {
 
-  const [task, setTask] = useState<Task>({title: ""});
-  const [taskList, setTaskList] = useState<Task[]>([]);
+  const [newTask, setNewTask] = useState<TaskType>({id: 0, text: "", isCompleted: false});
+  const [taskList, setTaskList] = useState<TaskType[]>([]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
-    setTask({title: event.target.value});
+    setNewTask({id: 0, text: event.target.value, isCompleted: false});
   }
 
   const addNewTask = () => {
-    setTaskList([...taskList, task]);
-    setTask({title: ""});
+    setTaskList([...taskList, newTask]);
+    setNewTask({id: 0, text: "", isCompleted: false});
   }
 
-  const removeTask = (itemToRemove: Task) => {
-    let updatedTaskList = taskList.filter(item => item.title != itemToRemove.title);
-    //console.log("removeTask aqui");
+  const removeTask = (itemToRemove: TaskType) => {
+    const updatedTaskList: TaskType[] = taskList.filter(item => item.text != itemToRemove.text);
     setTaskList(updatedTaskList);
   }
 
-  /* const addNewTask = () => {
-    setTaskList([...taskList, task]);
-    setTask({title: "", id: 0});
+  const editTask = (itemToEdit: TaskType) => {
+    const taskIndex: number = taskList.findIndex(item => item.text == itemToEdit.text);
+    console.log(taskIndex);
   }
- */
+
+  const toggleTask = (id: number) => {
+    const updatedTaskList: TaskType[] = taskList.map(item => {
+      if(item.id === id) {
+        return {...item, isCompleted: !item.isCompleted}
+      }
+      return item;
+    });
+    setTaskList(updatedTaskList);
+  }
+
   useEffect(() => {
     console.log(taskList);
   },[taskList])
@@ -36,18 +46,20 @@ function App() {
   return (
     <>
       <header>
-        <h2>Task manager:</h2>
-        <input type="text" onChange={handleChange} name="newTask" value={task.title} placeholder='Type your task' id="" />
+        <h2>TaskType manager:</h2>
+        <input type="text" onChange={handleChange} name="newTask" value={newTask.text} placeholder='Type your task' id="" />
         <input type="button" onClick={addNewTask} value="Add" />
       </header>
 
       <main>
-        {taskList.map((item: Task) => {
+        {taskList.map((task: TaskType) => {
           return (
-            <div>
-              <p>{item.title}</p>
-              <button onClick={() => removeTask(item)}>Delete</button>
-            </div>
+            <Task 
+              key={task.id} 
+              task={task} 
+              toggleTask={toggleTask}
+              removeTask={removeTask} 
+              editTask={editTask}/>
           )
         })}
       </main>
