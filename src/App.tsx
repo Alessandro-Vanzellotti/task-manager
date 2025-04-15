@@ -4,6 +4,7 @@ import { Task as TaskType } from './types';
 import { Task } from './Task';
 import { NewTaskForm } from './NewTaskForm';
 import { v4 as uuidv4 } from 'uuid';
+import styled from 'styled-components';
 
 function App() {
 
@@ -26,7 +27,6 @@ function App() {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setNewTask({id: uuidv4(), text: event.target.value, isCompleted: false});
-    console.log(newTask.text);
   }
 
   const addNewTask = (text: string) => {
@@ -40,7 +40,7 @@ function App() {
     }
 
     taskList.forEach(task => {
-      if (task.text === text) doubledTask = true;
+      if (task.text.trim() === text.trim()) doubledTask = true;
     })
 
     if(doubledTask) {
@@ -74,6 +74,11 @@ function App() {
   useEffect(() => {
     console.log(taskList);
   },[taskList])
+
+  const StyledList = styled.ul({
+    padding: '0',
+
+  })
   
 
   return (
@@ -84,7 +89,7 @@ function App() {
       </header>
 
       <main>
-        <ul>
+        <StyledList>
           {taskList.map((task: TaskType) => {
             return (
               <Task
@@ -96,7 +101,7 @@ function App() {
               />
             )
           })}
-        </ul>
+        </StyledList>
       </main>
     </>
   )

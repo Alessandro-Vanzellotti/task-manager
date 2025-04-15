@@ -1,0 +1,22 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    height: 60px;
+}
+
+.delete-button {
+    background-color: red;
+}
+
+.edit-button {
+    background-color: #f5e70b;
+}
+
+.button:hover {
+    opacity: 0.9;
+}
+
+.text {
+    font-size: 1.7rem;
+}

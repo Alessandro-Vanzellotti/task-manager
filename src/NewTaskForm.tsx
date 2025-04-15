@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
 import { Task as TaskType } from "./types";
+import styled from "styled-components";
 
 type NewTaskFormType = {
     addNewTask: (text: string) => void;
@@ -13,13 +14,17 @@ export const NewTaskForm: React.FC<NewTaskFormType> = ({addNewTask, handleChange
         e.preventDefault();
         if (newTask.text === "") return;
         addNewTask(newTask.text);
-      }
+    }
+
+    const StyledForm = styled.form({
+        
+    })
     
     return (
 
-        <form onSubmit={(e) => handleSubmit(e)} className="new-item-form">
+        <StyledForm onSubmit={(e) => handleSubmit(e)} className="new-item-form">
             <input value={newTask.text} onChange={e => handleChange(e)} type="text" id="item" />
             <input type="submit" value="Add" />
-        </form>
+        </StyledForm>
     )
 }

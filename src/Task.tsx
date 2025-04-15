@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Task as TaskType} from './types';
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { MdOutlineEdit } from "react-icons/md";
+import './Task.scss';
 
 type Props = {
     task: TaskType;
@@ -10,19 +13,31 @@ type Props = {
 
 export const Task: React.FC<Props> = ({task, toggleTask, removeTask, editTask}) => {
 
+    const [isEdited, setIsEdited] = useState<boolean>(false);
+
     const handleTaskRemoval = () : void => {
         removeTask(task);
     }
 
     const handleTaskEditing = () : void => {
+        //setIsEdited(true);
         editTask(task);
     }
+    
 
     return (
-        <li >
-            <p onClick={() => toggleTask(task.id)}>{task.text}</p>
-              <button onClick={() => handleTaskRemoval()}>Delete</button>
-              <button onClick={() => handleTaskEditing()}>Edit</button>
+        <li className='wrapper' >
+            <input type="checkbox" onChange={() => toggleTask(task.id)} checked={task.isCompleted} />
+            <p style={{ textDecoration: task.isCompleted ? 'line-through' : 'none'}}>{task.text}</p>
+            
+            <button className='button delete-button' onClick={() => handleTaskRemoval()}>
+                <RiDeleteBin6Line />
+            </button>
+            
+            <button onClick={() => handleTaskEditing()}>
+                <MdOutlineEdit />
+            </button>
+            
         </li>
     )
 }
