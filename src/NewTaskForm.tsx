@@ -1,20 +1,19 @@
-import { ChangeEvent, EventHandler, useState } from "react";
+import { ChangeEvent } from "react";
 import { Task as TaskType } from "./types";
 
 type NewTaskFormType = {
-    addNewTask: () => void;
+    addNewTask: (text: string) => void;
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     newTask: TaskType;
 }
 
 export const NewTaskForm: React.FC<NewTaskFormType> = ({addNewTask, handleChange, newTask}) => {
     
-    function handleSubmit(e: React.SyntheticEvent) {
+    const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
         if (newTask.text === "") return;
-        addNewTask();
+        addNewTask(newTask.text);
       }
-    
     
     return (
 
