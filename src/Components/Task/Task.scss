@@ -7,10 +7,18 @@
 
 .delete-button {
     background-color: red;
+
+    &:hover {
+        opacity: 0.9;
+    }
 }
 
 .edit-button {
     background-color: #f5e70b;
+
+    &:hover {
+        opacity: 0.9;
+    }
 }
 
 .button:hover {

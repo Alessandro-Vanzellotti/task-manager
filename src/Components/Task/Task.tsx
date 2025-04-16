@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Task as TaskType} from './types';
+import {Task as TaskType} from '../../types';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdOutlineEdit } from "react-icons/md";
 import './Task.scss';
@@ -13,14 +13,11 @@ type Props = {
 
 export const Task: React.FC<Props> = ({task, toggleTask, removeTask, editTask}) => {
 
-    const [isEdited, setIsEdited] = useState<boolean>(false);
-
     const handleTaskRemoval = () : void => {
         removeTask(task);
     }
 
     const handleTaskEditing = () : void => {
-        //setIsEdited(true);
         editTask(task);
     }
     
@@ -30,11 +27,11 @@ export const Task: React.FC<Props> = ({task, toggleTask, removeTask, editTask}) 
             <input type="checkbox" onChange={() => toggleTask(task.id)} checked={task.isCompleted} />
             <p style={{ textDecoration: task.isCompleted ? 'line-through' : 'none'}}>{task.text}</p>
             
-            <button className='button delete-button' onClick={() => handleTaskRemoval()}>
+            <button className='delete-button' onClick={() => handleTaskRemoval()}>
                 <RiDeleteBin6Line />
             </button>
             
-            <button onClick={() => handleTaskEditing()}>
+            <button className='edit-button' onClick={() => handleTaskEditing()}>
                 <MdOutlineEdit />
             </button>
             

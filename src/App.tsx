@@ -1,10 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import './App.css';
 import { Task as TaskType } from './types';
-import { Task } from './Task';
-import { NewTaskForm } from './NewTaskForm';
+import { Task } from './Components/Task/Task';
+import { NewTaskForm } from './Components/NewTaskForm/NewTaskForm';
 import { v4 as uuidv4 } from 'uuid';
-import styled from 'styled-components';
 
 function App() {
 
@@ -74,11 +73,6 @@ function App() {
   useEffect(() => {
     console.log(taskList);
   },[taskList])
-
-  const StyledList = styled.ul({
-    padding: '0',
-
-  })
   
 
   return (
@@ -89,7 +83,7 @@ function App() {
       </header>
 
       <main>
-        <StyledList>
+        <ul>
           {taskList.map((task: TaskType) => {
             return (
               <Task
@@ -101,7 +95,7 @@ function App() {
               />
             )
           })}
-        </StyledList>
+        </ul>
       </main>
     </>
   )
