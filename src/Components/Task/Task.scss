@@ -14,17 +14,19 @@
 
 .item__delete-button {
     background-color: red;
-
-    &:hover {
-        opacity: 0.9;
-    }
 }
 
 .item__edit-button {
     background-color: #f5e70b;
+}
 
+button {
     &:hover {
         opacity: 0.9;
+    }
+
+    &:active {
+        opacity: 0.8;
     }
 }
 
