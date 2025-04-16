@@ -1,11 +1,18 @@
-.wrapper {
+.item {
     display: flex;
     align-items: center;
+    
     margin-bottom: 0.5rem;
-    height: 60px;
+    height: 50px;
+    background-color: aqua;
 }
 
-.delete-button {
+.item__checkbox {
+    height: 17px;
+    width: 17px;
+}
+
+.item__delete-button {
     background-color: red;
 
     &:hover {
@@ -13,7 +20,7 @@
     }
 }
 
-.edit-button {
+.item__edit-button {
     background-color: #f5e70b;
 
     &:hover {
@@ -21,10 +28,7 @@
     }
 }
 
-.button:hover {
-    opacity: 0.9;
-}
-
-.text {
-    font-size: 1.7rem;
+.item__text {
+    font-size: 1.8rem;
+    margin: 0 15px 0 7px;
 }

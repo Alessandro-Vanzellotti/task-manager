@@ -23,15 +23,15 @@ export const Task: React.FC<Props> = ({task, toggleTask, removeTask, editTask}) 
     
 
     return (
-        <li className='wrapper' >
-            <input type="checkbox" onChange={() => toggleTask(task.id)} checked={task.isCompleted} />
-            <p style={{ textDecoration: task.isCompleted ? 'line-through' : 'none'}}>{task.text}</p>
+        <li className={'item'} >
+            <input className={'item__checkbox'} type="checkbox" onChange={() => toggleTask(task.id)} checked={task.isCompleted} />
+            <p className={'item__text'} style={{ textDecoration: task.isCompleted ? 'line-through' : 'none'}}>{task.text}</p>
             
-            <button className='delete-button' onClick={() => handleTaskRemoval()}>
+            <button className={'item__delete-button'} onClick={() => handleTaskRemoval()}>
                 <RiDeleteBin6Line />
             </button>
             
-            <button className='edit-button' onClick={() => handleTaskEditing()}>
+            <button className={'item__edit-button'} onClick={() => handleTaskEditing()}>
                 <MdOutlineEdit />
             </button>
             
