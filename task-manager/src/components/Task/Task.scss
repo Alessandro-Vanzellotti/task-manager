@@ -1,0 +1,35 @@
+.item {
+    display: flex;
+    align-items: center;
+    
+    margin-bottom: 0.5rem;
+    height: 50px;
+}
+
+.item__checkbox {
+    height: 17px;
+    width: 17px;
+}
+
+.item__delete-button {
+    background-color: red;
+}
+
+.item__edit-button {
+    background-color: #f5e70b;
+}
+
+button {
+    &:hover {
+        opacity: 0.9;
+    }
+
+    &:active {
+        opacity: 0.8;
+    }
+}
+
+.item__text {
+    font-size: 1.8rem;
+    margin: 0 15px 0 7px;
+}
