@@ -6,12 +6,12 @@ import './Task.scss';
 
 type Props = {
     task: TaskType;
-    toggleTask: (id: string) => void;
+    //toggleTask: (id: string) => void;
     removeTask: (task: TaskType) => void;
     editTask: (task: TaskType) => void;
 };
 
-export const Task: React.FC<Props> = ({task, toggleTask, removeTask, editTask}) => {
+export const Task: React.FC<Props> = ({task, removeTask, editTask}) => {
 
     const handleTaskRemoval = () : void => {
         removeTask(task);
@@ -24,7 +24,8 @@ export const Task: React.FC<Props> = ({task, toggleTask, removeTask, editTask}) 
 
     return (
         <li className={'item'} >
-            <input className={'item__checkbox'} type="checkbox" onChange={() => toggleTask(task.id)} checked={task.isCompleted} />
+            <input className={'item__checkbox'} type="checkbox" checked={task.isCompleted} />
+            {/* <input className={'item__checkbox'} type="checkbox" onChange={() => toggleTask(task.id)} checked={task.isCompleted} /> */}
             <p className={'item__text'} style={{ textDecoration: task.isCompleted ? 'line-through' : 'none'}}>{task.text}</p>
             
             <button className={'item__delete-button'} onClick={() => handleTaskRemoval()}>

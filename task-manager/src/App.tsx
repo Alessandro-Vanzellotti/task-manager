@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from 'uuid';
 function App() {
 
   const [newTask, setNewTask] = useState<TaskType>({
-    id: uuidv4(),
     text: "", 
     isCompleted: false
   });
@@ -25,7 +24,7 @@ function App() {
   }, [taskList]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setNewTask({id: uuidv4(), text: event.target.value, isCompleted: false});
+    setNewTask({text: event.target.value, isCompleted: false});
   }
 
   const addNewTask = (text: string) => {
@@ -60,7 +59,7 @@ function App() {
     console.log(taskIndex);
   }
 
-  const toggleTask = (id: string) => {
+  /* const toggleTask = (id: string) => {
     const updatedTaskList: TaskType[] = taskList.map(item => {
       if(item.id === id) {
         return {...item, isCompleted: !item.isCompleted}
@@ -68,7 +67,7 @@ function App() {
       return item;
     });
     setTaskList(updatedTaskList);
-  }
+  } */
 
   useEffect(() => {
     console.log(taskList);
@@ -87,9 +86,9 @@ function App() {
           {taskList.map((task: TaskType) => {
             return (
               <Task
-                key={task.id} 
+                //key={task.id} 
                 task={task} 
-                toggleTask={toggleTask}
+                //toggleTask={toggleTask}
                 removeTask={removeTask} 
                 editTask={editTask}
               />
