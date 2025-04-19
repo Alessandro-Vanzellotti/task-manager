@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 
 const taskSchema = new mongoose.Schema({
-    text: { type: String, required: true },
-    isComplete: {type: Boolean, required: true }
+    title: { type: String, required: true },
+    description: { type: String, required: false },
+    priorityLevel: { type: String, required: true },
+    progress: { type: String, required: true }
 })
 
-export const taskModel = mongoose.model("Task", taskSchema);
+export const Task = mongoose.model("Task", taskSchema);
