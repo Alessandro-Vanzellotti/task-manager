@@ -8,8 +8,11 @@ import { v4 as uuidv4 } from 'uuid';
 function App() {
 
   const [newTask, setNewTask] = useState<TaskType>({
-    text: "", 
-    isCompleted: false
+    title: "",
+    description: "",
+    priorityLevel: "",
+    progress: "",
+    beingEdited: false
   });
 
   const [taskList, setTaskList] = useState<TaskType[]>(() => {
@@ -23,40 +26,57 @@ function App() {
     localStorage.setItem("ITEMS", JSON.stringify(taskList))
   }, [taskList]);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setNewTask({text: event.target.value, isCompleted: false});
+  const handleTitleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setNewTask({...newTask, title: event.target.value});
   }
 
-  const addNewTask = (text: string) => {
-    
-    let doubledTask: boolean = false;
+  const handleDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+    setNewTask({...newTask, description: event.target.value});
+  }
 
-    if(text.trim().length === 0) {
-      setNewTask({...newTask, text: ""});
+  const addNewTask = (title: string) => {
+    
+    let existingTask: boolean = false;
+    let trimmedTitle: string = title.trim();
+
+    if(trimmedTitle.length === 0) {
+      setNewTask({ 
+        title: "", 
+        description: "", 
+        progress: "Pending", 
+        priorityLevel: "None",
+        beingEdited: false
+      });
       alert('Please, type a task');
       return;
     }
 
     taskList.forEach(task => {
-      if (task.text.trim() === text.trim()) doubledTask = true;
+      if (task.title === trimmedTitle) existingTask = true;
     })
 
-    if(doubledTask) {
+    if(existingTask) {
       alert('The task is already on the list');
     } else {
       setTaskList([...taskList, newTask]);
-      setNewTask({...newTask, text: ""});
+      setNewTask({ 
+        title: "", 
+        description: "", 
+        progress: "Pending", 
+        priorityLevel: "None",
+        beingEdited: false
+      });
     }
   }
     
   const removeTask = (itemToRemove: TaskType) => {
-    const updatedTaskList: TaskType[] = taskList.filter(item => item.text != itemToRemove.text);
+    const updatedTaskList: TaskType[] = taskList.filter(item => item.title != itemToRemove.title);
     setTaskList(updatedTaskList);
   }
 
   const editTask = (itemToEdit: TaskType) => {
-    const taskIndex: number = taskList.findIndex(item => item.text == itemToEdit.text);
-    console.log(taskIndex);
+    
+    itemToEdit.beingEdited = !itemToEdit.beingEdited;
   }
 
   /* const toggleTask = (id: string) => {
@@ -78,7 +98,12 @@ function App() {
     <>
       <header>
         <h1>Task Manager:</h1>
-        <NewTaskForm addNewTask={addNewTask} handleChange={handleChange} newTask={newTask} />
+        <NewTaskForm 
+          addNewTask={addNewTask} 
+          handleTitleChange={handleTitleChange}
+          handleDescriptionChange={handleDescriptionChange}
+          newTask={newTask} 
+        />
       </header>
 
       <main>
@@ -86,7 +111,7 @@ function App() {
           {taskList.map((task: TaskType) => {
             return (
               <Task
-                //key={task.id} 
+                key={uuidv4()} 
                 task={task} 
                 //toggleTask={toggleTask}
                 removeTask={removeTask} 

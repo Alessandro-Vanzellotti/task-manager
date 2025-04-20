@@ -1,4 +1,7 @@
 export type Task = {
-    text: string,
-    isCompleted: boolean
+    title: string,
+    description?: string, 
+    priorityLevel: string,
+    progress: string,
+    beingEdited: boolean
 }
