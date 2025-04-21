@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TaskType } from '../../types';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdOutlineEdit } from "react-icons/md";
@@ -6,7 +6,6 @@ import './Task.scss';
 
 type Props = {
     task: TaskType;
-    //toggleTask: (id: string) => void;
     removeTask: (task: TaskType) => void;
     editTask: (task: TaskType) => void;
 };

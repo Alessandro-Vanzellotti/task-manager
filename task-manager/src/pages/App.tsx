@@ -1,11 +1,11 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import './App.css';
-import { TaskType } from './types';
-import { Task } from './components/Task/Task';
-import { IFormInput, NewTaskForm } from './components/NewTaskForm/NewTaskForm';
+import { TaskType } from '../types';
+import { Task } from '../components/Task/Task';
+import { TaskForm } from '../components/TaskForm/TaskForm';
 import { v4 as uuidv4 } from 'uuid';
 
-function App() {
+export default function App() {
 
   const [taskList, setTaskList] = useState<TaskType[]>(() => {
     const localValue = localStorage.getItem("ITEMS");
@@ -78,19 +78,11 @@ function App() {
   }
 
   const editTask = (itemToEdit: TaskType) => {
-    
-    itemToEdit.beingEdited = !itemToEdit.beingEdited;
-  }
+    const editedTask = taskList.find(task => task.title === itemToEdit.title);
+    if (!editedTask) return
 
-  /* const toggleTask = (id: string) => {
-    const updatedTaskList: TaskType[] = taskList.map(item => {
-      if(item.id === id) {
-        return {...item, isCompleted: !item.isCompleted}
-      }
-      return item;
-    });
-    setTaskList(updatedTaskList);
-  } */
+    editedTask.beingEdited = !editedTask.beingEdited;
+  }
 
   useEffect(() => {
     console.log(taskList);
@@ -101,21 +93,25 @@ function App() {
     <>
       <header>
         <h1>Task Manager:</h1>
-        <NewTaskForm  addNewTask={addTask} taskList={taskList}
-          /* handleTitleChange={handleTitleChange}
-          handleDescriptionChange={handleDescriptionChange} */
-        />
+        <TaskForm addNewTask={addTask} taskList={taskList} />
       </header>
 
       <main>
         <ul>
           {taskList.map((task: TaskType) => {
+
             return (
+              task.beingEdited ?
+              <TaskForm 
+                task={task}
+                addNewTask={addTask}
+                taskList={taskList}
+              />
+              :
               <Task
                 key={uuidv4()} 
-                task={task} 
-                //toggleTask={toggleTask}
-                removeTask={removeTask} 
+                task={task}
+                removeTask={removeTask}
                 editTask={editTask}
               />
             )
@@ -125,5 +121,3 @@ function App() {
     </>
   )
 }
-
-export default App

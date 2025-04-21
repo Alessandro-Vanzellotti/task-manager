@@ -1,6 +1,5 @@
-import { ChangeEvent, useEffect, useState } from "react";
 import { TaskType } from "../../types";
-import './NewTaskForm.scss';
+import './TaskForm.scss';
 import { IoMdAdd } from "react-icons/io";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -24,17 +23,18 @@ export interface IFormInput {
     progress: progressEnum
 }
 
-type NewTaskFormType = {
+type TaskFormType = {
+    task?: TaskType;
     addNewTask: (task: TaskType) => void;
     taskList: TaskType[];
 }
 
-export const NewTaskForm: React.FC<NewTaskFormType> = ({
+export const TaskForm: React.FC<TaskFormType> = ({
     taskList,
     addNewTask
     }) => {
 
-    const { register, handleSubmit, getValues, formState, reset, formState: { isSubmitSuccessful }
+    const { register, handleSubmit, getValues, reset, formState: { errors }
      } = useForm<IFormInput>({ defaultValues: 
         { 
             title: "",
@@ -61,12 +61,23 @@ export const NewTaskForm: React.FC<NewTaskFormType> = ({
 
         <form className={'form'} onSubmit={handleSubmit(onSubmit)}>
             <header className={'form__header'}>
-                <input 
-                    className={'form__title'} 
-                    type="text" id="item" 
-                    {...register("title")}
-                    placeholder="Type a task"
-                />
+
+                <div className={'form__title'}>
+                    <input 
+                        className={'form__title-input'} 
+                        type="text" id="item" 
+                        {...register("title", { 
+                            required: {
+                                value: true,
+                                message: "*Title is required",
+                            } 
+                        })}
+                        placeholder="Type a title"
+                    />
+                    <p role="alert" className={'error'}>
+                        {errors.title?.message}
+                    </p>
+                </div>
 
                 <button className={'form__add-button'} type="submit">
                     <IoMdAdd className={'form__add-icon'} />
@@ -78,6 +89,7 @@ export const NewTaskForm: React.FC<NewTaskFormType> = ({
                     maxLength={350} 
                     className={'form__description-text'}
                     {...register("description")}
+                    placeholder="Type a description"
                 >
                 </textarea>
             </section>
