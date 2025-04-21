@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Task as TaskType} from '../../types';
+import { TaskType } from '../../types';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdOutlineEdit } from "react-icons/md";
 import './Task.scss';

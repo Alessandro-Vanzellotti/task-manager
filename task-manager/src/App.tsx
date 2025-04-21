@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import './App.css';
-import { Task as TaskType } from './types';
+import { TaskType } from './types';
 import { Task } from './components/Task/Task';
 import { NewTaskForm } from './components/NewTaskForm/NewTaskForm';
 import { v4 as uuidv4 } from 'uuid';
@@ -34,10 +34,10 @@ function App() {
     setNewTask({...newTask, description: event.target.value});
   }
 
-  const addNewTask = (title: string) => {
+  const addNewTask = (task: TaskType) => {
     
     let existingTask: boolean = false;
-    let trimmedTitle: string = title.trim();
+    let trimmedTitle: string = task.title.trim();
 
     if(trimmedTitle.length === 0) {
       setNewTask({ 
