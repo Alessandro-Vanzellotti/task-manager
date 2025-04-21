@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import App from './pages/App.tsx';
+import App from './pages/Home/Home.tsx';
 import MainPage from './pages/MainPage.tsx';
 import Router from './routes.tsx';
 
@@ -20,9 +20,3 @@ if (container) {
     "Root element with ID 'root' was not found in the document. Ensure there is a corresponding HTML element with the ID 'root' in your HTML file.",
   )
 }
-
-/* createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <MainPage />
-  </StrictMode>,
-) */

@@ -1,16 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-//import Map from "./pages/Map/Map";
 import MainPage from "./pages/MainPage";
-import App from "./pages/App";
-//import EquipmentDetails from "./pages/EquipmentDetails/EquipmentDetails";
+import Home from "./pages/Home/Home";
+import { TaskDetails } from "./pages/TaskDetails/TaskDetails";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<MainPage />}>
-          <Route index element={<App/>} />
-          {/* <Route path='/equipmentDetails/:id' element={<EquipmentDetails/>} /> */}
+          <Route index element={<Home/>} />
+          <Route path='/taskDetails/:id' element={<TaskDetails taskList={[]}/>} />
         </Route>
       </Routes>
     </BrowserRouter>

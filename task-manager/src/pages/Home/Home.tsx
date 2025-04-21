@@ -1,11 +1,11 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import './App.css';
-import { TaskType } from '../types';
-import { Task } from '../components/Task/Task';
-import { TaskForm } from '../components/TaskForm/TaskForm';
+import './Home.css';
+import { TaskType } from '../../types';
+import { Task } from '../../components/Task/Task';
+import { TaskForm } from '../../components/TaskForm/TaskForm';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function App() {
+export default function Home() {
 
   const [taskList, setTaskList] = useState<TaskType[]>(() => {
     const localValue = localStorage.getItem("ITEMS");
@@ -101,13 +101,6 @@ export default function App() {
           {taskList.map((task: TaskType) => {
 
             return (
-              task.beingEdited ?
-              <TaskForm 
-                task={task}
-                addNewTask={addTask}
-                taskList={taskList}
-              />
-              :
               <Task
                 key={uuidv4()} 
                 task={task}

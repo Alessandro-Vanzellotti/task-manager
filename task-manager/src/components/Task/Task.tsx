@@ -3,6 +3,7 @@ import { TaskType } from '../../types';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdOutlineEdit } from "react-icons/md";
 import './Task.scss';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     task: TaskType;
@@ -11,6 +12,8 @@ type Props = {
 };
 
 export const Task: React.FC<Props> = ({task, removeTask, editTask}) => {
+
+    const navigate = useNavigate();
 
     const handleTaskRemoval = () : void => {
         removeTask(task);
@@ -22,7 +25,9 @@ export const Task: React.FC<Props> = ({task, removeTask, editTask}) => {
     
 
     return (
-        <li className={'task'} >
+        <li className={'task'} 
+            onClick={() => navigate(`/taskDetails/${task.id}`)}
+        >
             <header className={'task__header'}>
                 <h2 className={'task__title'}>{task.title}</h2>
                 <div className={'task__buttons'}>
@@ -40,16 +45,9 @@ export const Task: React.FC<Props> = ({task, removeTask, editTask}) => {
             </header>
 
             <section className={'task__description'}>
-
-                {task.beingEdited ? 
-                    <textarea name="task-text" maxLength={350} className={'task__description-text'} >
-                        {task.description}
-                    </textarea> :
-                    <p className={'task__description-text'} >
-                        {task.description}
-                    </p>
-                }
-
+                <p className={'task__description-text'} >
+                    {task.description}
+                </p>
             </section>
             <footer className={'task__footer'}>
                 <p>{`Progress: ${task.progress}`}</p>

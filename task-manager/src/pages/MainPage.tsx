@@ -7,10 +7,9 @@ export default function MainPage() {
             <div >
                 <nav >
                     <div>
-                        {/* <Link to='/' >
+                        <Link to='/' >
                             Home
-                        </Link> */}
-                        <p>Oi</p>
+                        </Link>
                     </div>
                 </nav>
             </div>
