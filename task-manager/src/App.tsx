@@ -2,18 +2,10 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import './App.css';
 import { TaskType } from './types';
 import { Task } from './components/Task/Task';
-import { NewTaskForm } from './components/NewTaskForm/NewTaskForm';
+import { IFormInput, NewTaskForm } from './components/NewTaskForm/NewTaskForm';
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
-
-  const [newTask, setNewTask] = useState<TaskType>({
-    title: "",
-    description: "",
-    priorityLevel: "",
-    progress: "",
-    beingEdited: false
-  });
 
   const [taskList, setTaskList] = useState<TaskType[]>(() => {
     const localValue = localStorage.getItem("ITEMS");
@@ -26,15 +18,15 @@ function App() {
     localStorage.setItem("ITEMS", JSON.stringify(taskList))
   }, [taskList]);
 
-  const handleTitleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  /* const handleTitleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setNewTask({...newTask, title: event.target.value});
   }
 
   const handleDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setNewTask({...newTask, description: event.target.value});
-  }
+  } */
 
-  const addNewTask = (task: TaskType) => {
+  /* const addNewTask = (task: TaskType) => {
     
     let existingTask: boolean = false;
     let trimmedTitle: string = task.title.trim();
@@ -58,6 +50,13 @@ function App() {
     if(existingTask) {
       alert('The task is already on the list');
     } else {
+      setNewTask({
+        title: task.title,
+        description: task.description,
+        priorityLevel: task.priorityLevel,
+        progress: task.progress,
+        beingEdited: false
+      })
       setTaskList([...taskList, newTask]);
       setNewTask({ 
         title: "", 
@@ -67,7 +66,11 @@ function App() {
         beingEdited: false
       });
     }
-  }
+  } */
+
+    const addTask = (newTask: TaskType) => {
+      setTaskList([...taskList, newTask])
+    }
     
   const removeTask = (itemToRemove: TaskType) => {
     const updatedTaskList: TaskType[] = taskList.filter(item => item.title != itemToRemove.title);
@@ -98,11 +101,9 @@ function App() {
     <>
       <header>
         <h1>Task Manager:</h1>
-        <NewTaskForm 
-          addNewTask={addNewTask} 
-          handleTitleChange={handleTitleChange}
-          handleDescriptionChange={handleDescriptionChange}
-          newTask={newTask} 
+        <NewTaskForm  addNewTask={addTask} taskList={taskList}
+          /* handleTitleChange={handleTitleChange}
+          handleDescriptionChange={handleDescriptionChange} */
         />
       </header>
 

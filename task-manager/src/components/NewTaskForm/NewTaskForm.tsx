@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { TaskType } from "../../types";
 import './NewTaskForm.scss';
 import { IoMdAdd } from "react-icons/io";
@@ -17,7 +17,7 @@ enum progressEnum {
     complete = "Complete"
 }
 
-interface IFormInput {
+export interface IFormInput {
     title: string
     description: string
     priorityLevel: priorityLevelsEnum
@@ -26,47 +26,46 @@ interface IFormInput {
 
 type NewTaskFormType = {
     addNewTask: (task: TaskType) => void;
-    handleTitleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    handleDescriptionChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-    newTask: TaskType;
+    taskList: TaskType[];
 }
 
 export const NewTaskForm: React.FC<NewTaskFormType> = ({
-    addNewTask, 
-    handleTitleChange, 
-    handleDescriptionChange,
-    newTask}) => {
+    taskList,
+    addNewTask
+    }) => {
 
-    const { register, handleSubmit } = useForm<IFormInput>();
-    
-    /* const handleSubmit = (e: React.SyntheticEvent) => {
-        e.preventDefault();
-        addNewTask(newTask.title);
-    } */
+    const { register, handleSubmit, getValues, formState, reset, formState: { isSubmitSuccessful }
+     } = useForm<IFormInput>({ defaultValues: 
+        { 
+            title: "",
+            description: "",
+            priorityLevel: priorityLevelsEnum.none,
+            progress: progressEnum.pending,
+        } 
+    });
 
     const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
-        addNewTask({
+
+        const task: TaskType = {
             title: data.title,
             description: data.description,
             priorityLevel: data.priorityLevel,
             progress: data.progress,
             beingEdited: false
-        })
+        }
+        addNewTask(task);
+        reset({...getValues});
     }
     
     return (
 
         <form className={'form'} onSubmit={handleSubmit(onSubmit)}>
-        {/* <form className={'form'} onSubmit={(e) => handleSubmit(e)}> */}
-
             <header className={'form__header'}>
                 <input 
                     className={'form__title'} 
                     type="text" id="item" 
-                    value={newTask.title}
                     {...register("title")}
-                    onChange={e => handleTitleChange(e)}
-                    placeholder="Type a task" 
+                    placeholder="Type a task"
                 />
 
                 <button className={'form__add-button'} type="submit">
@@ -79,32 +78,29 @@ export const NewTaskForm: React.FC<NewTaskFormType> = ({
                     maxLength={350} 
                     className={'form__description-text'}
                     {...register("description")}
-                    onChange={e => handleDescriptionChange(e)}
-                    value={newTask.description}
                 >
-                    {newTask.description}
                 </textarea>
-
             </section>
+
             <footer className={'form__footer'}>
                 
                 <select 
                     id="progress" 
                     {...register("progress")}
                 >
-                    <option value="pending">Pending</option>
-                    <option value="in progress">In progress</option>
-                    <option value="complete">Complete</option>
+                    <option selected value="Pending">Pending</option>
+                    <option value="In progress">In progress</option>
+                    <option value="Complete">Complete</option>
                 </select>
 
                 <select 
                     id="priority-levels" 
                     {...register("priorityLevel")}
                 >
-                    <option value="none">None</option>
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
+                    <option value="None">None</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
                 </select>
             </footer>
         </form>

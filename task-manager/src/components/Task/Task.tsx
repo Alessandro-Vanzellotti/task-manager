@@ -44,30 +44,17 @@ export const Task: React.FC<Props> = ({task, removeTask, editTask}) => {
 
                 {task.beingEdited ? 
                     <textarea name="task-text" maxLength={350} className={'task__description-text'} >
-                        Lorem, ipsum dolor sit amet consectetur adipisicing 
-                        elit. Quibusdam fugit minima exercitationem quas! 
-                        Voluptas excepturi blanditiis ullam magnam. Nemo, 
-                        quibusdam adipisci! Ex, praesentium? Quos quidem 
-                        deserunt rerum. Reprehenderit, natus dolores!
+                        {task.description}
                     </textarea> :
                     <p className={'task__description-text'} >
-                        Lorem, ipsum dolor sit amet consectetur adipisicing 
-                        elit. Quibusdam fugit minima exercitationem quas! 
-                        Voluptas excepturi blanditiis ullam magnam. Nemo, 
-                        quibusdam adipisci! Ex, praesentium? Quos quidem 
-                        deserunt rerum. Reprehenderit, natus dolores!
+                        {task.description}
                     </p>
                 }
 
             </section>
             <footer className={'task__footer'}>
-                <p>Progress: Pending</p>
-                <select id="progress-levels" name="progress-levels">
-                    <option value="none">None</option>
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
+                <p>{`Progress: ${task.progress}`}</p>
+                <p>{`Priority level: ${task.priorityLevel}`}</p>
             </footer>
             
             
