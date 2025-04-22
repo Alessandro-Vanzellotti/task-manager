@@ -2,6 +2,8 @@ import { TaskType } from "../../types";
 import './TaskForm.scss';
 import { IoMdAdd } from "react-icons/io";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { v4 as uuidv4 } from 'uuid';
+
 
 enum priorityLevelsEnum {
     none = "None",
@@ -26,13 +28,9 @@ export interface IFormInput {
 type TaskFormType = {
     task?: TaskType;
     addNewTask: (task: TaskType) => void;
-    taskList: TaskType[];
 }
 
-export const TaskForm: React.FC<TaskFormType> = ({
-    taskList,
-    addNewTask
-    }) => {
+export const TaskForm: React.FC<TaskFormType> = ({addNewTask}) => {
 
     const { register, handleSubmit, getValues, reset, formState: { errors }
      } = useForm<IFormInput>({ defaultValues: 
@@ -47,6 +45,7 @@ export const TaskForm: React.FC<TaskFormType> = ({
     const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
 
         const task: TaskType = {
+            id: uuidv4(),
             title: data.title,
             description: data.description,
             priorityLevel: data.priorityLevel,

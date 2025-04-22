@@ -1,30 +1,15 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './Home.css';
 import { TaskType } from '../../types';
 import { Task } from '../../components/Task/Task';
 import { TaskForm } from '../../components/TaskForm/TaskForm';
 import { v4 as uuidv4 } from 'uuid';
+import { useTaskListContext } from '../../TaskListContext';
+
 
 export default function Home() {
 
-  const [taskList, setTaskList] = useState<TaskType[]>(() => {
-    const localValue = localStorage.getItem("ITEMS");
-    if(localValue == null) return [];
-
-    return JSON.parse(localValue);
-  });
-
-  useEffect(() => {
-    localStorage.setItem("ITEMS", JSON.stringify(taskList))
-  }, [taskList]);
-
-  /* const handleTitleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setNewTask({...newTask, title: event.target.value});
-  }
-
-  const handleDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-    setNewTask({...newTask, description: event.target.value});
-  } */
+  const {taskList, setTaskList} = useTaskListContext();
 
   /* const addNewTask = (task: TaskType) => {
     
@@ -68,12 +53,12 @@ export default function Home() {
     }
   } */
 
-    const addTask = (newTask: TaskType) => {
-      setTaskList([...taskList, newTask])
+    const addNewTask = (newTask: TaskType) => {
+      setTaskList([...taskList, newTask]);
     }
     
-  const removeTask = (itemToRemove: TaskType) => {
-    const updatedTaskList: TaskType[] = taskList.filter(item => item.title != itemToRemove.title);
+  const removeTask = (taskToRemove: TaskType) => {
+    const updatedTaskList: TaskType[] = taskList.filter(item => item.title != taskToRemove.title);
     setTaskList(updatedTaskList);
   }
 
@@ -93,7 +78,7 @@ export default function Home() {
     <>
       <header>
         <h1>Task Manager:</h1>
-        <TaskForm addNewTask={addTask} taskList={taskList} />
+        <TaskForm addNewTask={addNewTask} />
       </header>
 
       <main>

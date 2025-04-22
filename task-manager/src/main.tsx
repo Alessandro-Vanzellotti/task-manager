@@ -1,9 +1,7 @@
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import App from './pages/Home/Home.tsx';
-import MainPage from './pages/MainPage.tsx';
 import Router from './routes.tsx';
+import { StrictMode } from 'react';
 
 const container = document.getElementById("root");
 

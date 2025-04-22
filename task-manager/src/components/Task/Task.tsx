@@ -20,25 +20,26 @@ export const Task: React.FC<Props> = ({task, removeTask, editTask}) => {
     }
 
     const handleTaskEditing = () : void => {
-        editTask(task);
+        navigate(`/tasks/${task.id}`);
+        //editTask(task);
     }
     
 
     return (
-        <li className={'task'} 
-            onClick={() => navigate(`/taskDetails/${task.id}`)}
-        >
+        <li className={'task'} >
             <header className={'task__header'}>
                 <h2 className={'task__title'}>{task.title}</h2>
                 <div className={'task__buttons'}>
                     <button 
                         className={'task__edit-button button'} 
-                        onClick={() => handleTaskEditing()}>
+                        onClick={() => handleTaskEditing()}
+                    >
                         <MdOutlineEdit />
                     </button>
                     <button 
                         className={'task__delete-button button'} 
-                        onClick={() => handleTaskRemoval()}>
+                        onClick={() => handleTaskRemoval()}
+                    >
                         <RiDeleteBin6Line />
                     </button>
                 </div>
