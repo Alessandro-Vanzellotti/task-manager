@@ -3,20 +3,7 @@ import './TaskEditingForm.scss';
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTaskListContext } from "../../TaskListContext";
 import { useNavigate } from "react-router-dom";
-
-
-export enum priorityLevelsEnum {
-    none = "None",
-    low = "Low",
-    medium = "Medium",
-    high = "High"
-}
-
-export enum progressEnum {
-    pending = "Pending",
-    inProgress = "In progress",
-    complete = "Complete"
-}
+import { priorityLevelsEnum, progressEnum } from "../../enums";
 
 export interface IFormInput {
     title: string

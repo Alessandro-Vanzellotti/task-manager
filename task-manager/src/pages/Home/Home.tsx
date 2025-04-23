@@ -5,11 +5,12 @@ import { Task } from '../../components/Task/Task';
 import { NewTaskForm } from '../../components/NewTaskForm/NewTaskForm';
 import { v4 as uuidv4 } from 'uuid';
 import { useTaskListContext } from '../../TaskListContext';
+import { getAllTasks } from '../../api/api';
 
 
 export default function Home() {
 
-  const {taskList, setTaskList} = useTaskListContext();
+  const {taskList} = useTaskListContext();
 
   /* const addNewTask = (task: TaskType) => {
     
@@ -53,25 +54,33 @@ export default function Home() {
     }
   } */
 
-    const addNewTask = (newTask: TaskType) => {
-      setTaskList([...taskList, newTask]);
-    }
     
-  const removeTask = (taskToRemove: TaskType) => {
+  /* const removeTask = async (taskToRemove: TaskType) => {
     const updatedTaskList: TaskType[] = taskList.filter(item => item.title != taskToRemove.title);
     setTaskList(updatedTaskList);
-  }
+  } */
 
-  useEffect(() => {
+  /* useEffect(() => {
+
+    const updateTaskList = async () => {
+      try {
+        const newTaskList = await getAllTasks();
+        setTaskList(newTaskList);
+      } catch (error) {
+          console.error(error);
+      }    
+    }
+    updateTaskList();
     console.log(taskList);
-  },[taskList])
+
+  },[]) */
   
 
   return (
     <>
       <header className={'header'}>
         <h2>Choose a task!</h2>
-        <NewTaskForm addNewTask={addNewTask} />
+        <NewTaskForm />
       </header>
 
       <main>
@@ -82,7 +91,6 @@ export default function Home() {
               <Task
                 key={uuidv4()} 
                 task={task}
-                removeTask={removeTask}
               />
             )
           })}

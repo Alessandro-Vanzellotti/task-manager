@@ -1,4 +1,5 @@
 import axios from "axios";
+import { TaskType } from "../types";
 
 export const getAllTasks = async () => {
     try {
@@ -14,6 +15,22 @@ export const getTaskById = async (taskId: string | undefined) => {
         if(!taskId) return;
         const response = await axios.get(`http://localhost:5000/api/tasks/${taskId}`);
         return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const createNewTask = async (newTask: TaskType) => {
+    try {
+        const response = await axios.post(`http://localhost:5000/api/tasks`, newTask);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const deleteTask = async (taskId: string) => {
+    try {
+        await axios.delete(`http://localhost:5000/api/tasks/${taskId}`);
     } catch (error) {
         console.error(error);
     }

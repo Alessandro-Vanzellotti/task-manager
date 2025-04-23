@@ -4,18 +4,22 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdOutlineEdit } from "react-icons/md";
 import './Task.scss';
 import { useNavigate } from 'react-router-dom';
+import { deleteTask, getAllTasks } from '../../api/api';
+import { useTaskListContext } from '../../TaskListContext';
 
 type Props = {
     task: TaskType;
-    removeTask: (task: TaskType) => void;
 }
 
-export const Task: React.FC<Props> = ({task, removeTask}) => {
+export const Task: React.FC<Props> = ({task}) => {
 
     const navigate = useNavigate();
+    const { setTaskList } = useTaskListContext();
 
-    const handleTaskRemoval = () : void => {
-        removeTask(task);
+    const handleTaskRemoval = async () : Promise<void> => {
+        await deleteTask(task._id);
+        const newList = await getAllTasks();
+        setTaskList(newList);
     }
 
     const handleTaskEditing = () : void => {

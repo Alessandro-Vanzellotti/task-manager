@@ -1,21 +1,10 @@
 import { TaskType } from "../../types";
 import { IoMdAdd } from "react-icons/io";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { v4 as uuidv4 } from 'uuid';
 import './NewTaskForm.scss';
-
-enum priorityLevelsEnum {
-    none = "None",
-    low = "Low",
-    medium = "Medium",
-    high = "High"
-}
-
-enum progressEnum {
-    pending = "Pending",
-    inProgress = "In progress",
-    complete = "Complete"
-}
+import { createNewTask, getAllTasks } from "../../api/api";
+import { useTaskListContext } from "../../TaskListContext";
+import { priorityLevelsEnum, progressEnum } from "../../enums";
 
 export interface IFormInput {
     title: string
@@ -24,11 +13,9 @@ export interface IFormInput {
     progress: progressEnum
 }
 
-type NewTaskFormType = {
-    addNewTask: (task: TaskType) => void;
-}
+export const NewTaskForm: React.FC = () => {
 
-export const NewTaskForm: React.FC<NewTaskFormType> = ({addNewTask}) => {
+    const {setTaskList} = useTaskListContext();
 
     const { register, handleSubmit, getValues, reset, formState: { errors }
      } = useForm<IFormInput>({ defaultValues: 
@@ -40,18 +27,32 @@ export const NewTaskForm: React.FC<NewTaskFormType> = ({addNewTask}) => {
         } 
     });
 
-    const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
+    const addNewTask = async (newTask: TaskType) => {
+        try {
+            createNewTask(newTask);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput) => {
 
         const task: TaskType = {
-            id: uuidv4(),
             title: data.title,
             description: data.description,
             priorityLevel: data.priorityLevel,
-            progress: data.progress,
-            beingEdited: false
+            progress: data.progress
         }
-        addNewTask(task);
-        reset({...getValues});
+
+        try {
+            await addNewTask(task);
+            const newTaskList = await getAllTasks();
+            setTaskList(newTaskList);
+            reset({...getValues});
+        } catch (error) {
+            console.error(error);
+        }
+        
     }
     
     return (
@@ -97,7 +98,7 @@ export const NewTaskForm: React.FC<NewTaskFormType> = ({addNewTask}) => {
                         id="progress" 
                         {...register("progress")}
                         >
-                        <option selected value="Pending">Pending</option>
+                        <option value="Pending">Pending</option>
                         <option value="In progress">In progress</option>
                         <option value="Complete">Complete</option>
                     </select>
