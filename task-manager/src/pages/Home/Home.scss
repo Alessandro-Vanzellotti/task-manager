@@ -1,15 +1,11 @@
-#root {
-  padding: 1.7em;
-  margin: 0;
-}
-
 .header {
-  padding: 10px 30px;
+  padding: 10px 0 10px 4.5%;
 }
 
 .task-list {
-  padding: 0;
+  padding: 4.5%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
   gap: 10px;
 }

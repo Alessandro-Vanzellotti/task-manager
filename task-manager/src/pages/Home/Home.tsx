@@ -1,11 +1,9 @@
-import { useEffect } from 'react';
 import './Home.scss';
 import { TaskType } from '../../types';
 import { Task } from '../../components/Task/Task';
 import { NewTaskForm } from '../../components/NewTaskForm/NewTaskForm';
 import { v4 as uuidv4 } from 'uuid';
 import { useTaskListContext } from '../../TaskListContext';
-import { getAllTasks } from '../../api/api';
 
 
 export default function Home() {

@@ -10,9 +10,12 @@ export default function Navbar() {
         <>
             <nav className={'nav'}>
                 <p className={'nav__title'}>Task Manager</p>
-                <div>
+                <div className={'nav__links'}>
                     <Link to='/' className={'link'} >
                         Home
+                    </Link>
+                    <Link to='/tasks' className={'link'} >
+                        Tasks
                     </Link>
                 </div>
             </nav>

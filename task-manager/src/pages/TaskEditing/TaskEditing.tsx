@@ -2,19 +2,14 @@ import { useParams } from "react-router-dom";
 import { TaskType } from "../../types";
 import { useEffect, useState } from "react";
 import { useTaskListContext } from "../../TaskListContext";
-import { priorityLevelsEnum, progressEnum, TaskEditingForm } from "../../components/TaskEditingForm/TaskEditingForm";
+import { TaskEditingForm } from "../../components/TaskEditingForm/TaskEditingForm";
 import { getTaskById } from "../../api/api";
 
 type MyParams = {
     _id: string
 }
-
-type Props = {
-    removeTask: (task: TaskType) => void;
-    editTask: (task: TaskType) => void;
-}
   
-export const TaskEditing: React.FC<Props> = ({}) => {
+export default function TaskEditing() {
 
     const { _id } = useParams<MyParams>();
 
