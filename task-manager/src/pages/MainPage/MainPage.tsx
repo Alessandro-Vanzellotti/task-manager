@@ -2,6 +2,8 @@ import { createContext, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { TaskType } from '../../types';
 import { TaskListContext } from '../../TaskListContext';
+import Navbar from '../../components/Navbar/Navbar';
+import './MaingPage.scss';
 
 export default function MainPage() {
 
@@ -18,15 +20,7 @@ export default function MainPage() {
 
     return (
         <TaskListContext.Provider value={{taskList, setTaskList}}>
-            <div >
-                <nav >
-                    <div>
-                        <Link to='/' >
-                            Home
-                        </Link>
-                    </div>
-                </nav>
-            </div>
+            <Navbar />
             <div>
                 <Outlet />
             </div>

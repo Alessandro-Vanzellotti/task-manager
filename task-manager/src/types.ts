@@ -1,8 +1,10 @@
+import { priorityLevelsEnum, progressEnum } from "./components/TaskEditingForm/TaskEditingForm"
+
 export type TaskType = {
     id?: string,
     title: string,
     description?: string, 
-    priorityLevel: string,
-    progress: string,
+    priorityLevel: priorityLevelsEnum,
+    progress: progressEnum,
     beingEdited: boolean
 }

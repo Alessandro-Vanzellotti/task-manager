@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import './Home.css';
 import { TaskType } from '../../types';
 import { Task } from '../../components/Task/Task';
-import { TaskForm } from '../../components/TaskForm/TaskForm';
+import { NewTaskForm } from '../../components/NewTaskForm/NewTaskForm';
 import { v4 as uuidv4 } from 'uuid';
 import { useTaskListContext } from '../../TaskListContext';
 
@@ -62,13 +62,6 @@ export default function Home() {
     setTaskList(updatedTaskList);
   }
 
-  const editTask = (itemToEdit: TaskType) => {
-    const editedTask = taskList.find(task => task.title === itemToEdit.title);
-    if (!editedTask) return
-
-    editedTask.beingEdited = !editedTask.beingEdited;
-  }
-
   useEffect(() => {
     console.log(taskList);
   },[taskList])
@@ -78,7 +71,7 @@ export default function Home() {
     <>
       <header>
         <h1>Task Manager:</h1>
-        <TaskForm addNewTask={addNewTask} />
+        <NewTaskForm addNewTask={addNewTask} />
       </header>
 
       <main>
@@ -90,7 +83,6 @@ export default function Home() {
                 key={uuidv4()} 
                 task={task}
                 removeTask={removeTask}
-                editTask={editTask}
               />
             )
           })}

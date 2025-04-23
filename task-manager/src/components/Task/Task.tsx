@@ -8,10 +8,9 @@ import { useNavigate } from 'react-router-dom';
 type Props = {
     task: TaskType;
     removeTask: (task: TaskType) => void;
-    editTask: (task: TaskType) => void;
-};
+}
 
-export const Task: React.FC<Props> = ({task, removeTask, editTask}) => {
+export const Task: React.FC<Props> = ({task, removeTask}) => {
 
     const navigate = useNavigate();
 

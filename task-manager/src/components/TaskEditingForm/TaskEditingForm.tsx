@@ -1,0 +1,148 @@
+import { TaskType } from "../../types";
+import './TaskEditingForm.scss';
+import { IoMdAdd } from "react-icons/io";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { v4 as uuidv4 } from 'uuid';
+import { useTaskListContext } from "../../TaskListContext";
+import { useNavigate } from "react-router-dom";
+
+
+export enum priorityLevelsEnum {
+    none = "None",
+    low = "Low",
+    medium = "Medium",
+    high = "High"
+}
+
+export enum progressEnum {
+    pending = "Pending",
+    inProgress = "In progress",
+    complete = "Complete"
+}
+
+export interface IFormInput {
+    title: string
+    description: string
+    priorityLevel: priorityLevelsEnum
+    progress: progressEnum
+}
+
+type TaskEditingFormType = {
+    task: TaskType;
+}
+
+export const TaskEditingForm: React.FC<TaskEditingFormType> = ({task}) => {
+
+    const {taskList, setTaskList} = useTaskListContext();
+    const navigate = useNavigate();
+
+    const { register, handleSubmit, getValues, reset, formState: { errors }
+     } = useForm<IFormInput>({ defaultValues: 
+        { 
+            title: task.title,
+            description: task.description,
+            priorityLevel: task.priorityLevel,
+            progress: task.progress,
+        } 
+    });
+
+    const editTask = (taskToEdit: TaskType) => {
+    
+        //const editedTask = taskList.find(task => task.id === taskToEdit.id);
+        const newTasks: TaskType[] = taskList.map(task => {
+          if (task.id === taskToEdit.id) {
+            return taskToEdit;
+          } else {
+            return task;
+          }
+        });
+    
+        setTaskList(newTasks);
+      }
+
+    const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
+
+        const editedtask: TaskType = {
+            id: task.id,
+            title: data.title,
+            description: data.description,
+            priorityLevel: data.priorityLevel,
+            progress: data.progress,
+            beingEdited: task.beingEdited
+        }
+        const newTasks: TaskType[] = taskList.map(task => {
+            if (task.id === editedtask.id) {
+              return editedtask;
+            } else {
+              return task;
+            }
+          });
+      
+            setTaskList(newTasks);
+            navigate(`/`);
+    }
+    
+    return (
+
+        <form className={'form'} onSubmit={handleSubmit(onSubmit)}>
+            <header className={'form__header'}>
+
+                <div className={'form__title'}>
+                    <label htmlFor="title">Title</label>
+                    <input 
+                        className={'form__title-input'} 
+                        type="text" id="item" 
+                        {...register("title", { 
+                            required: {
+                                value: true,
+                                message: "*Title is required",
+                            } 
+                        })}
+                        placeholder="Type a title"
+                    />
+                    <p role="alert" className={'error'}>
+                        {errors.title?.message}
+                    </p>
+                </div>
+            </header>
+
+            <section className={'form__description'}>
+                <textarea
+                    maxLength={350} 
+                    className={'form__description-text'}
+                    {...register("description")}
+                    placeholder="Type a description"
+                >
+                </textarea>
+            </section>
+
+            <footer className={'form__footer'}>
+                <div>
+                    <label htmlFor="progress">Progress: </label>
+                    <select 
+                        id="progress" 
+                        {...register("progress")}
+                        >
+                        <option selected value="Pending">Pending</option>
+                        <option value="In progress">In progress</option>
+                        <option value="Complete">Complete</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label htmlFor="priorityLevel">Priority Level: </label>
+                    <select 
+                        id="priority-levels" 
+                        {...register("priorityLevel")}
+                        >
+                        <option value="None">None</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <button className={'form__add-button'} type="submit">Done</button>
+            </footer>
+        </form>
+    )
+}

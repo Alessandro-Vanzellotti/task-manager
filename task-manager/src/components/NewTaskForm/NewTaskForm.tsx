@@ -1,5 +1,5 @@
 import { TaskType } from "../../types";
-import './TaskForm.scss';
+import './NewTaskForm.scss';
 import { IoMdAdd } from "react-icons/io";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from 'uuid';
@@ -25,12 +25,12 @@ export interface IFormInput {
     progress: progressEnum
 }
 
-type TaskFormType = {
+type NewTaskFormType = {
     task?: TaskType;
     addNewTask: (task: TaskType) => void;
 }
 
-export const TaskForm: React.FC<TaskFormType> = ({addNewTask}) => {
+export const NewTaskForm: React.FC<NewTaskFormType> = ({addNewTask}) => {
 
     const { register, handleSubmit, getValues, reset, formState: { errors }
      } = useForm<IFormInput>({ defaultValues: 
@@ -59,9 +59,10 @@ export const TaskForm: React.FC<TaskFormType> = ({addNewTask}) => {
     return (
 
         <form className={'form'} onSubmit={handleSubmit(onSubmit)}>
-            <header className={'form__header'}>
 
+            <header className={'form__header'}>
                 <div className={'form__title'}>
+                    <label htmlFor="title">Title</label>
                     <input 
                         className={'form__title-input'} 
                         type="text" id="item" 
@@ -77,10 +78,6 @@ export const TaskForm: React.FC<TaskFormType> = ({addNewTask}) => {
                         {errors.title?.message}
                     </p>
                 </div>
-
-                <button className={'form__add-button'} type="submit">
-                    <IoMdAdd className={'form__add-icon'} />
-                </button>
             </header>
 
             <section className={'form__description'}>
@@ -95,24 +92,33 @@ export const TaskForm: React.FC<TaskFormType> = ({addNewTask}) => {
 
             <footer className={'form__footer'}>
                 
-                <select 
-                    id="progress" 
-                    {...register("progress")}
-                >
-                    <option selected value="Pending">Pending</option>
-                    <option value="In progress">In progress</option>
-                    <option value="Complete">Complete</option>
-                </select>
+                <div>
+                    <label htmlFor="progress">Progress: </label>
+                    <select 
+                        id="progress" 
+                        {...register("progress")}
+                        >
+                        <option selected value="Pending">Pending</option>
+                        <option value="In progress">In progress</option>
+                        <option value="Complete">Complete</option>
+                    </select>
+                </div>
 
-                <select 
-                    id="priority-levels" 
-                    {...register("priorityLevel")}
-                >
-                    <option value="None">None</option>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                </select>
+                <div>
+                    <label htmlFor="priorityLevel">Priority Level: </label>
+                    <select 
+                        id="priority-levels" 
+                        {...register("priorityLevel")}
+                        >
+                        <option value="None">None</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <button className={'form__add-button'} type="submit">
+                    <IoMdAdd className={'form__add-icon'} />
+                </button>
             </footer>
         </form>
     )
