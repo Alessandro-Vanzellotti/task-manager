@@ -1,8 +1,6 @@
 import { TaskType } from "../../types";
 import './TaskEditingForm.scss';
-import { IoMdAdd } from "react-icons/io";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { v4 as uuidv4 } from 'uuid';
 import { useTaskListContext } from "../../TaskListContext";
 import { useNavigate } from "react-router-dom";
 
@@ -36,7 +34,7 @@ export const TaskEditingForm: React.FC<TaskEditingFormType> = ({task}) => {
     const {taskList, setTaskList} = useTaskListContext();
     const navigate = useNavigate();
 
-    const { register, handleSubmit, getValues, reset, formState: { errors }
+    const { register, handleSubmit, formState: { errors }
      } = useForm<IFormInput>({ defaultValues: 
         { 
             title: task.title,
@@ -46,32 +44,17 @@ export const TaskEditingForm: React.FC<TaskEditingFormType> = ({task}) => {
         } 
     });
 
-    const editTask = (taskToEdit: TaskType) => {
-    
-        //const editedTask = taskList.find(task => task.id === taskToEdit.id);
-        const newTasks: TaskType[] = taskList.map(task => {
-          if (task.id === taskToEdit.id) {
-            return taskToEdit;
-          } else {
-            return task;
-          }
-        });
-    
-        setTaskList(newTasks);
-      }
-
     const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
 
         const editedtask: TaskType = {
-            id: task.id,
+            _id: task._id,
             title: data.title,
             description: data.description,
             priorityLevel: data.priorityLevel,
             progress: data.progress,
-            beingEdited: task.beingEdited
         }
         const newTasks: TaskType[] = taskList.map(task => {
-            if (task.id === editedtask.id) {
+            if (task._id === editedtask._id) {
               return editedtask;
             } else {
               return task;

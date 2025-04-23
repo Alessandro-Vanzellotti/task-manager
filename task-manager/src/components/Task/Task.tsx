@@ -19,8 +19,7 @@ export const Task: React.FC<Props> = ({task, removeTask}) => {
     }
 
     const handleTaskEditing = () : void => {
-        navigate(`/tasks/${task.id}`);
-        //editTask(task);
+        navigate(`/tasks/${task._id}`);
     }
     
 
@@ -51,7 +50,7 @@ export const Task: React.FC<Props> = ({task, removeTask}) => {
             </section>
             <footer className={'task__footer'}>
                 <p>{`Progress: ${task.progress}`}</p>
-                <p>{`Priority level: ${task.priorityLevel}`}</p>
+                <p>{`Priority Level: ${task.priorityLevel}`}</p>
             </footer>
             
             

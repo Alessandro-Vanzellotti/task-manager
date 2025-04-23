@@ -3,9 +3,10 @@ import { TaskType } from "../../types";
 import { useEffect, useState } from "react";
 import { useTaskListContext } from "../../TaskListContext";
 import { priorityLevelsEnum, progressEnum, TaskEditingForm } from "../../components/TaskEditingForm/TaskEditingForm";
+import { getTaskById } from "../../api/api";
 
 type MyParams = {
-    id: string
+    _id: string
 }
 
 type Props = {
@@ -15,38 +16,28 @@ type Props = {
   
 export const TaskEditing: React.FC<Props> = ({}) => {
 
-    const {taskList, setTaskList} = useTaskListContext();
+    const { _id } = useParams<MyParams>();
 
-    const { id } = useParams<MyParams>();
-    const [detailedTask, setDetailedTask] = useState<TaskType>(() => {
-        const currentTask = taskList.find(task => task.id === id);
-        if (currentTask) {
-            return currentTask;
-        } else {
-            return {
-                id: "",
-                title: "",
-                description: "",
-                priorityLevel: priorityLevelsEnum.none,
-                progress: progressEnum.pending,
-                beingEdited: false
-            }
-        }
-    })
+    const [detailedTask, setDetailedTask] = useState<TaskType>();
 
     useEffect(() => {
-        /* const thisTask = taskList.find((task: TaskType) => task.id === id);
-        if (!thisTask) return;
-        setDetailedTask(thisTask); */
-        console.log(detailedTask);
+        const getTask = async (id: string | undefined) => {
+            try {
+                const returnedTask = await getTaskById(id);
+                setDetailedTask(returnedTask);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        getTask(_id);
     }, []);
     
 
     return (
         <>
-            <TaskEditingForm 
+            {detailedTask ? <TaskEditingForm 
                 task={detailedTask}
-            />
+            /> : <p>Task not found</p>}
         </>
     )
 }

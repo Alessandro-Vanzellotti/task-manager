@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import './Home.css';
+import './Home.scss';
 import { TaskType } from '../../types';
 import { Task } from '../../components/Task/Task';
 import { NewTaskForm } from '../../components/NewTaskForm/NewTaskForm';
@@ -69,13 +69,13 @@ export default function Home() {
 
   return (
     <>
-      <header>
-        <h1>Task Manager:</h1>
+      <header className={'header'}>
+        <h2>Choose a task!</h2>
         <NewTaskForm addNewTask={addNewTask} />
       </header>
 
       <main>
-        <ul>
+        <ul className={'task-list'}>
           {taskList.map((task: TaskType) => {
 
             return (

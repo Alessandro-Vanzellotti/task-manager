@@ -1,0 +1,15 @@
+#root {
+  padding: 1.7em;
+  margin: 0;
+}
+
+.header {
+  padding: 10px 30px;
+}
+
+.task-list {
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}

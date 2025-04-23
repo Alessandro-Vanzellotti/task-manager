@@ -2,12 +2,11 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    
     margin-bottom: 0.5rem;
     padding: 10px 30px;
     height: 200px;
-    width: 700px;
-    border: solid white 2px;
+    width: 500px;
+    border: solid white 1.5px;
     border-radius: 10px;
 
     .task__header {
@@ -15,8 +14,6 @@
         align-items: center;
         justify-content: space-between;
         height: 100px;
-        margin: 0;
-        padding: 0;
 
         .task__title {
             margin: 0;

@@ -1,9 +1,8 @@
 import { TaskType } from "../../types";
-import './NewTaskForm.scss';
 import { IoMdAdd } from "react-icons/io";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from 'uuid';
-
+import './NewTaskForm.scss';
 
 enum priorityLevelsEnum {
     none = "None",
@@ -26,7 +25,6 @@ export interface IFormInput {
 }
 
 type NewTaskFormType = {
-    task?: TaskType;
     addNewTask: (task: TaskType) => void;
 }
 
@@ -58,13 +56,13 @@ export const NewTaskForm: React.FC<NewTaskFormType> = ({addNewTask}) => {
     
     return (
 
-        <form className={'form'} onSubmit={handleSubmit(onSubmit)}>
+        <form className={'new-form'} onSubmit={handleSubmit(onSubmit)}>
 
-            <header className={'form__header'}>
-                <div className={'form__title'}>
-                    <label htmlFor="title">Title</label>
+            <header className={'new-form__header'}>
+                <div className={'new-form__title'}>
+                    <label htmlFor="title">Title:</label>
                     <input 
-                        className={'form__title-input'} 
+                        className={'new-form__title-input'} 
                         type="text" id="item" 
                         {...register("title", { 
                             required: {
@@ -80,17 +78,18 @@ export const NewTaskForm: React.FC<NewTaskFormType> = ({addNewTask}) => {
                 </div>
             </header>
 
-            <section className={'form__description'}>
+            <section className={'new-form__description'}>
+                <label htmlFor="description">Description:</label>
                 <textarea
                     maxLength={350} 
-                    className={'form__description-text'}
+                    className={'new-form__description-text'}
                     {...register("description")}
                     placeholder="Type a description"
                 >
                 </textarea>
             </section>
 
-            <footer className={'form__footer'}>
+            <footer className={'new-form__footer'}>
                 
                 <div>
                     <label htmlFor="progress">Progress: </label>
@@ -116,8 +115,8 @@ export const NewTaskForm: React.FC<NewTaskFormType> = ({addNewTask}) => {
                         <option value="High">High</option>
                     </select>
                 </div>
-                <button className={'form__add-button'} type="submit">
-                    <IoMdAdd className={'form__add-icon'} />
+                <button className={'new-form__add-button'} type="submit">
+                    <IoMdAdd className={'new-form__add-icon'} />
                 </button>
             </footer>
         </form>
