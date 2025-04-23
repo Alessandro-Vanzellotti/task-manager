@@ -15,7 +15,7 @@ export interface IFormInput {
 
 export const NewTaskForm: React.FC = () => {
 
-    const {setTaskList} = useTaskListContext();
+    const { setTaskList } = useTaskListContext();
 
     const { register, handleSubmit, getValues, reset, formState: { errors }
      } = useForm<IFormInput>({ defaultValues: 
@@ -27,17 +27,18 @@ export const NewTaskForm: React.FC = () => {
         } 
     });
 
-    const addNewTask = async (newTask: TaskType) => {
+    const addNewTask = async (newTask: TaskType): Promise<void> => {
         try {
-            createNewTask(newTask);
+            await createNewTask(newTask);
         } catch (error) {
             console.error(error);
         }
     }
 
-    const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput) => {
+    const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput): Promise<void> => {
 
         const task: TaskType = {
+            _id: '',
             title: data.title,
             description: data.description,
             priorityLevel: data.priorityLevel,

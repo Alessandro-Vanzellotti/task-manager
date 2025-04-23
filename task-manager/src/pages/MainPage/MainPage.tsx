@@ -25,11 +25,13 @@ export default function MainPage() {
       }, [setTaskList])
 
     return (
-        <TaskListContext.Provider value={{taskList, setTaskList}}>
-            <Navbar />
-            <div>
-                <Outlet />
-            </div>
-        </TaskListContext.Provider>
+        <>
+            <TaskListContext.Provider value={{taskList, setTaskList}}>
+                <Navbar />
+                <div>
+                    <Outlet />
+                </div>
+            </TaskListContext.Provider>
+        </>
     )
 }

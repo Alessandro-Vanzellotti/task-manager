@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useTaskListContext } from "../../TaskListContext";
 import { useNavigate } from "react-router-dom";
 import { priorityLevelsEnum, progressEnum } from "../../enums";
+import { getAllTasks, updateTask } from "../../api/api";
 
 export interface IFormInput {
     title: string
@@ -31,25 +32,22 @@ export const TaskEditingForm: React.FC<TaskEditingFormType> = ({task}) => {
         } 
     });
 
-    const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
+    const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput): Promise<void> => {
 
-        const editedtask: TaskType = {
+        const editedTask: TaskType = {
             _id: task._id,
             title: data.title,
             description: data.description,
             priorityLevel: data.priorityLevel,
             progress: data.progress,
         }
-        const newTasks: TaskType[] = taskList.map(task => {
-            if (task._id === editedtask._id) {
-              return editedtask;
-            } else {
-              return task;
-            }
-          });
-      
-            setTaskList(newTasks);
-            navigate(`/`);
+
+        await updateTask(task._id, editedTask);
+
+        const newTaskList: TaskType[] = await getAllTasks();
+        
+        setTaskList(newTaskList);
+        navigate(`/`);
     }
     
     return (

@@ -18,8 +18,8 @@ export const Task: React.FC<Props> = ({task}) => {
 
     const handleTaskRemoval = async () : Promise<void> => {
         await deleteTask(task._id);
-        const newList = await getAllTasks();
-        setTaskList(newList);
+        const newTaskList = await getAllTasks();
+        setTaskList(newTaskList);
     }
 
     const handleTaskEditing = () : void => {
