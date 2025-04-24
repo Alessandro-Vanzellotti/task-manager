@@ -3,12 +3,13 @@ import { TaskType } from '../../types';
 import { Task } from '../../components/Task/Task';
 import { NewTaskForm } from '../../components/NewTaskForm/NewTaskForm';
 import { v4 as uuidv4 } from 'uuid';
-import { useTaskListContext } from '../../TaskListContext';
+import { useEffect, useState } from 'react';
+import { getAllTasks } from '../../api/api';
 
 
 export default function Home() {
 
-  const {taskList} = useTaskListContext();
+  const [taskList, setTaskList] = useState<TaskType[]>([]);
 
   /* const addNewTask = (task: TaskType) => {
     
@@ -52,26 +53,18 @@ export default function Home() {
     }
   } */
 
-    
-  /* const removeTask = async (taskToRemove: TaskType) => {
-    const updatedTaskList: TaskType[] = taskList.filter(item => item.title != taskToRemove.title);
-    setTaskList(updatedTaskList);
-  } */
-
-  /* useEffect(() => {
-
-    const updateTaskList = async () => {
-      try {
-        const newTaskList = await getAllTasks();
-        setTaskList(newTaskList);
-      } catch (error) {
-          console.error(error);
-      }    
-    }
-    updateTaskList();
-    console.log(taskList);
-
-  },[]) */
+  useEffect(() => {
+        
+    const getTaskList = async () => {
+        try {
+            const data = await getAllTasks();
+            setTaskList(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    getTaskList();
+  }, [setTaskList])
   
 
   return (
@@ -89,6 +82,7 @@ export default function Home() {
               <Task
                 key={uuidv4()} 
                 task={task}
+                setTaskList={setTaskList}
               />
             )
           })}

@@ -91,7 +91,7 @@ export const TaskEditingForm: React.FC<TaskEditingFormType> = ({task}) => {
                         id="progress" 
                         {...register("progress")}
                         >
-                        <option selected value="Pending">Pending</option>
+                        <option value="Pending">Pending</option>
                         <option value="In progress">In progress</option>
                         <option value="Complete">Complete</option>
                     </select>

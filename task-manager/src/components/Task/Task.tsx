@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { TaskType } from '../../types';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdOutlineEdit } from "react-icons/md";
@@ -8,13 +8,13 @@ import { deleteTask, getAllTasks } from '../../api/api';
 import { useTaskListContext } from '../../TaskListContext';
 
 type Props = {
-    task: TaskType;
+    task: TaskType
+    setTaskList: Dispatch<SetStateAction<TaskType[]>>
 }
 
-export const Task: React.FC<Props> = ({task}) => {
+export const Task: React.FC<Props> = ({ task, setTaskList }) => {
 
     const navigate = useNavigate();
-    const { setTaskList } = useTaskListContext();
 
     const handleTaskRemoval = async () : Promise<void> => {
         await deleteTask(task._id);

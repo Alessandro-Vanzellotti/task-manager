@@ -8,4 +8,5 @@
         "noImplicitAny": true,
     },
     "include": ["server/**/*"],
+    "exclude": ["c:/Users/aless/OneDrive/Área de Trabalho/task-manager-project/server/dist"],
 }
