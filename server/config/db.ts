@@ -1,17 +1,17 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-const MONGO_URI = 'mongodb+srv://Alessandro_Vanzellotti:ale212121@cluster0.vvmky8b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const uri: string = process.env.MONGO_URI as string;
 
-const connectDB = async () =>  {
-    try {
-        await mongoose.connect(MONGO_URI, {});
-        console.log("MongoDB connected");
-    } catch (err) {
-        console.error("Error connecting to MongoDB, err");
-        console.log(process.env.MONGO_URI);
-        
-        process.exit(1);
-    }
+const connectDB = async () => {
+  try {
+    await mongoose.connect(uri, {});
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.error("Error connecting to MongoDB, err");
+    process.exit(1);
+  }
 };
 
 export default connectDB;

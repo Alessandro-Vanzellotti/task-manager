@@ -9,12 +9,12 @@ export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<MainPage />}>
+        <Route path="/" element={<MainPage />}>
           <Route index element={<Home />} />
-          <Route path='/tasks/:_id' element={<TaskEditing />} />
-          <Route path='/tasks' element={<TaskList />} />
+          <Route path="/tasks/:_id" element={<TaskEditing />} />
+          <Route path="/tasks" element={<TaskList />} />
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }

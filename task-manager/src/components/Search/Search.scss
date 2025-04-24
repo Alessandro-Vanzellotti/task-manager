@@ -1,17 +1,17 @@
 .search {
-    padding-left: 3%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-    height: 70px;
+  padding-left: 3%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  height: 70px;
 
-    &__input {
-       height: 40%;
-       width: 200px;
-       border-radius: 7px;
-       border: none;
-       padding-left: 7px;
-       outline: none;
-    }
+  &__input {
+    height: 40%;
+    width: 200px;
+    border-radius: 7px;
+    border: none;
+    padding-left: 7px;
+    outline: none;
   }
+}

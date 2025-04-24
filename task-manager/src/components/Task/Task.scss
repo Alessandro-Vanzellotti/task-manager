@@ -1,69 +1,65 @@
 .task {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+  padding: 10px 30px;
+  height: 200px;
+  width: 500px;
+  border: solid white 1.5px;
+  border-radius: 10px;
+
+  .task__header {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 0.5rem;
-    padding: 10px 30px;
-    height: 200px;
-    width: 500px;
-    border: solid white 1.5px;
-    border-radius: 10px;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
 
-    .task__header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 100px;
-
-        .task__title {
-            margin: 0;
-        }
-        
-
-        .task__buttons {
-
-            .task__delete-button {
-                background-color: red;
-            }
-            
-            .task__edit-button {
-                background-color: #f5e70b;
-            }
-    
-            .button {
-                &:hover {
-                    opacity: 0.9;
-                }
-            
-                &:active {
-                    opacity: 0.8;
-                }
-            }
-        }
+    .task__title {
+      margin: 0;
     }
 
-    .task__description {
-        display: flex;
-        justify-content: center;
-        height: 70px;
+    .task__buttons {
+      .task__delete-button {
+        background-color: red;
+      }
 
-        &-text {
-            width: 100%;
-            height: 100%;
-            resize: none;
+      .task__edit-button {
+        background-color: #f5e70b;
+      }
+
+      .button {
+        &:hover {
+          opacity: 0.9;
         }
-    }
 
-    .task__footer {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-
-        select {
-            height: fit-content;
+        &:active {
+          opacity: 0.8;
         }
+      }
     }
-    
-            
+  }
+
+  .task__description {
+    display: flex;
+    justify-content: center;
+    height: 70px;
+
+    &-text {
+      width: 100%;
+      height: 100%;
+      resize: none;
+    }
+  }
+
+  .task__footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+
+    select {
+      height: fit-content;
+    }
+  }
 }

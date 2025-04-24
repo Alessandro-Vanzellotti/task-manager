@@ -1,95 +1,92 @@
 .new-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  margin-bottom: 3.5rem;
+  height: 230px;
+  width: 45%;
+
+  @media (max-width: 570px) {
+    width: 75%;
+  }
+
+  .new-form__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 65px;
+    margin-top: 15px;
+
+    .new-form__title {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+
+      .new-form__title-input {
+        height: 40px;
+        width: 240px;
+        border-radius: 6px;
+        margin-bottom: 1px;
+        border: none;
+        padding-left: 10px;
+
+        @media (max-width: 330px) {
+          width: 95%;
+        }
+      }
+
+      .error {
+        color: red;
+        font-size: 12px;
+        text-align: left;
+      }
+    }
+  }
+
+  .new-form__description {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    
-    margin-bottom: 3.5rem;
-    height: 230px;
-    width: 45%;
+    gap: 7px;
 
-    @media (max-width: 570px) {
-        width: 75%
+    &-text {
+      width: 100%;
+      height: 70px;
+      resize: none;
+      padding-left: 5px;
+    }
+  }
+
+  .new-form__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: white;
+
+    select {
+      height: fit-content;
     }
 
-    .new-form__header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 65px;
-        margin-top: 15px;
+    .new-form__add-button {
+      width: 45px;
+      height: fit-content;
+      background-color: rgb(30, 230, 30);
+      border-radius: 6px;
 
-        .new-form__title {
+      &:hover {
+        opacity: 0.9;
+      }
 
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
+      &:active {
+        opacity: 0.8;
+      }
 
-            .new-form__title-input {
-                height: 40px;
-                width: 240px;
-                border-radius: 6px;
-                margin-bottom: 1px;
-                border: none;
-                padding-left: 10px;
-
-                @media (max-width: 330px) {
-                    width: 95%
-                }
-            }
-
-            
-
-            .error {
-                color: red;
-                font-size: 12px;
-                text-align: left;
-            }
-        }
-    }
-
-    .new-form__description {
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-
-        &-text {
-            width: 100%;
-            height: 70px;
-            resize: none;
-            padding-left: 5px;
-        }
-    }
-
-    .new-form__footer {
-        display: flex;
-        justify-content:space-between;
-        align-items: center;
+      .new-form__add-icon {
         width: 100%;
+        height: 100%;
         color: white;
-
-        select {
-            height: fit-content;
-        }
-
-        .new-form__add-button {
-            width: 45px;
-            height: fit-content;
-            background-color: rgb(30, 230, 30);
-            border-radius: 6px;
-    
-            &:hover {
-                opacity: 0.9;
-            }
-    
-            &:active {
-                opacity: 0.8;
-            }
-
-            .new-form__add-icon {
-                width: 100%;
-                height: 100%;
-                color: white;
-            }
-        }
-    } 
+      }
+    }
+  }
 }
