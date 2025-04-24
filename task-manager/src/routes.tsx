@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainPage from "./pages/MainPage/MainPage";
 import Home from "./pages/Home/Home";
-import { TaskType } from "./types";
 import TaskEditing from "./pages/TaskEditing/TaskEditing";
 import TaskList from "./pages/TaskList/TaskList";
 

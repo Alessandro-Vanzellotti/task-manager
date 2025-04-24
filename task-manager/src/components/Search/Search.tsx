@@ -1,9 +1,3 @@
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  EventHandler,
-  useEffect,
-} from "react";
 import "./Search.scss";
 
 type Props = {
