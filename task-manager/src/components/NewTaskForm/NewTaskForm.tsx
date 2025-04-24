@@ -32,7 +32,7 @@ export const NewTaskForm: React.FC<Props> = ({ taskList, setTaskList }) => {
     let existingTask: boolean = false;
 
     taskList.forEach((task) => {
-      if (task.title.match(trimmedTitle)) existingTask = true;
+      if (task.title === trimmedTitle) existingTask = true;
     });
 
     if (existingTask) {
@@ -42,6 +42,7 @@ export const NewTaskForm: React.FC<Props> = ({ taskList, setTaskList }) => {
 
     try {
       await createNewTask(newTask);
+      alert("Task created successfully");
     } catch (error) {
       console.error(error);
     }

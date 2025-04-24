@@ -64,7 +64,7 @@ export const TaskEditingForm: React.FC<Props> = ({ task }) => {
 
       <section className={"form__description"}>
         <textarea
-          maxLength={350}
+          maxLength={100}
           className={"form__description-text"}
           {...register("description")}
           placeholder="Type a description"
