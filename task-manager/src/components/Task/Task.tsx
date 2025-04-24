@@ -5,7 +5,6 @@ import { MdOutlineEdit } from "react-icons/md";
 import './Task.scss';
 import { useNavigate } from 'react-router-dom';
 import { deleteTask, getAllTasks } from '../../api/api';
-import { useTaskListContext } from '../../TaskListContext';
 
 type Props = {
     task: TaskType

@@ -6,5 +6,12 @@ export type TaskType = {
     title: string,
     description?: string, 
     priorityLevel: priorityLevelsEnum,
-    progress: progressEnum
+    progress: progressEnum,
+}
+
+export interface IFormInput {
+    title: string,
+    description: string,
+    priorityLevel: priorityLevelsEnum,
+    progress: progressEnum,
 }

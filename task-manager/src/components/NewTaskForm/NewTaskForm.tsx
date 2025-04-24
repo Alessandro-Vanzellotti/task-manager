@@ -1,21 +1,17 @@
-import { TaskType } from "../../types";
+import { IFormInput, TaskType } from "../../types";
 import { IoMdAdd } from "react-icons/io";
 import { SubmitHandler, useForm } from "react-hook-form";
 import './NewTaskForm.scss';
 import { createNewTask, getAllTasks } from "../../api/api";
-import { useTaskListContext } from "../../TaskListContext";
 import { priorityLevelsEnum, progressEnum } from "../../enums";
+import { Dispatch, SetStateAction } from "react";
 
-export interface IFormInput {
-    title: string
-    description: string
-    priorityLevel: priorityLevelsEnum
-    progress: progressEnum
+type Props = {
+    taskList: TaskType[]
+    setTaskList: Dispatch<SetStateAction<TaskType[]>>
 }
 
-export const NewTaskForm: React.FC = () => {
-
-    const { setTaskList } = useTaskListContext();
+export const NewTaskForm: React.FC<Props> = ({ taskList, setTaskList }) => {
 
     const { register, handleSubmit, getValues, reset, formState: { errors }
      } = useForm<IFormInput>({ defaultValues: 
@@ -27,13 +23,67 @@ export const NewTaskForm: React.FC = () => {
         } 
     });
 
+    /* const addNewTask = (task: TaskType) => {
+    
+    let existingTask: boolean = false;
+    let trimmedTitle: string = task.title.trim();
+
+    if(trimmedTitle.length === 0) {
+      setNewTask({ 
+        title: "", 
+        description: "", 
+        progress: "Pending", 
+        priorityLevel: "None",
+        beingEdited: false
+      });
+      alert('Please, type a task');
+      return;
+    }
+
+    taskList.forEach(task => {
+      if (task.title === trimmedTitle) existingTask = true;
+    })
+
+    if(existingTask) {
+      alert('The task is already on the list');
+    } else {
+      setNewTask({
+        title: task.title,
+        description: task.description,
+        priorityLevel: task.priorityLevel,
+        progress: task.progress,
+        beingEdited: false
+      })
+      setTaskList([...taskList, newTask]);
+      setNewTask({ 
+        title: "", 
+        description: "", 
+        progress: "Pending", 
+        priorityLevel: "None",
+        beingEdited: false
+      });
+    }
+  } */
+
     const addNewTask = async (newTask: TaskType): Promise<void> => {
-        try {
+        const trimmedTitle = newTask.title.trim();
+        let existingTask: boolean = false;
+
+        taskList.forEach(task => {
+            if (task.title.match(trimmedTitle)) existingTask = true
+        })
+
+        if (existingTask) {
+            alert('The task is already on the list');
+            return;
+        }
+
+        try { 
             await createNewTask(newTask);
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput): Promise<void> => {
 
@@ -83,7 +133,7 @@ export const NewTaskForm: React.FC = () => {
             <section className={'new-form__description'}>
                 <label htmlFor="description">Description:</label>
                 <textarea
-                    maxLength={350} 
+                    maxLength={100} 
                     className={'new-form__description-text'}
                     {...register("description")}
                     placeholder="Type a description"

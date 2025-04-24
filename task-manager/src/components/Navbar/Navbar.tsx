@@ -1,7 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { TaskType } from '../../types';
-import { TaskListContext } from '../../TaskListContext';
+import { Link } from 'react-router-dom';
 import './Navbar.scss';
 
 export default function Navbar() {

@@ -11,48 +11,6 @@ export default function Home() {
 
   const [taskList, setTaskList] = useState<TaskType[]>([]);
 
-  /* const addNewTask = (task: TaskType) => {
-    
-    let existingTask: boolean = false;
-    let trimmedTitle: string = task.title.trim();
-
-    if(trimmedTitle.length === 0) {
-      setNewTask({ 
-        title: "", 
-        description: "", 
-        progress: "Pending", 
-        priorityLevel: "None",
-        beingEdited: false
-      });
-      alert('Please, type a task');
-      return;
-    }
-
-    taskList.forEach(task => {
-      if (task.title === trimmedTitle) existingTask = true;
-    })
-
-    if(existingTask) {
-      alert('The task is already on the list');
-    } else {
-      setNewTask({
-        title: task.title,
-        description: task.description,
-        priorityLevel: task.priorityLevel,
-        progress: task.progress,
-        beingEdited: false
-      })
-      setTaskList([...taskList, newTask]);
-      setNewTask({ 
-        title: "", 
-        description: "", 
-        progress: "Pending", 
-        priorityLevel: "None",
-        beingEdited: false
-      });
-    }
-  } */
-
   useEffect(() => {
         
     const getTaskList = async () => {
@@ -71,7 +29,7 @@ export default function Home() {
     <>
       <header className={'header'}>
         <h2>Choose a task!</h2>
-        <NewTaskForm />
+        <NewTaskForm taskList={taskList} setTaskList={setTaskList} />
       </header>
 
       <main>

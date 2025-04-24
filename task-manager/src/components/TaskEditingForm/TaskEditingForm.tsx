@@ -1,25 +1,15 @@
-import { TaskType } from "../../types";
+import { IFormInput, TaskType } from "../../types";
 import './TaskEditingForm.scss';
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useTaskListContext } from "../../TaskListContext";
 import { useNavigate } from "react-router-dom";
-import { priorityLevelsEnum, progressEnum } from "../../enums";
-import { getAllTasks, updateTask } from "../../api/api";
+import { updateTask } from "../../api/api";
 
-export interface IFormInput {
-    title: string
-    description: string
-    priorityLevel: priorityLevelsEnum
-    progress: progressEnum
-}
-
-type TaskEditingFormType = {
+type Props = {
     task: TaskType;
 }
 
-export const TaskEditingForm: React.FC<TaskEditingFormType> = ({task}) => {
+export const TaskEditingForm: React.FC<Props> = ({task}) => {
 
-    const {taskList, setTaskList} = useTaskListContext();
     const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors }
@@ -43,10 +33,6 @@ export const TaskEditingForm: React.FC<TaskEditingFormType> = ({task}) => {
         }
 
         await updateTask(task._id, editedTask);
-
-        const newTaskList: TaskType[] = await getAllTasks();
-        
-        setTaskList(newTaskList);
         navigate(`/`);
     }
     
