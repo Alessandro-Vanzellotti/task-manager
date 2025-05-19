@@ -24,7 +24,6 @@ export default function Home() {
   return (
     <>
       <header className={"header"}>
-        <h2>Choose a task!</h2>
         <NewTaskForm taskList={taskList} setTaskList={setTaskList} />
       </header>
 

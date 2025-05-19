@@ -4,8 +4,9 @@
   align-items: center;
   height: 70px;
   padding-left: 2%;
-  border-bottom: #fff solid 2px;
+  border-bottom: #000 solid 2px;
   font-family: sans-serif;
+  margin-bottom: 15px;
 
   .nav__title {
     font-size: 25px;
@@ -17,16 +18,20 @@
     align-items: center;
 
     .link {
-      color: #fff;
       font-size: 18px;
       padding: 5px 5px;
       text-decoration: none;
       font-weight: 600;
 
-      &:hover {
-        background-color: #fff;
-        color: rgb(3, 2, 8);
+      &:visited {
+        color: #000;
       }
+      
+      &:hover {
+        background-color: rgba(150, 148, 148, 0.856);
+        color: #fff;
+      }
+
     }
   }
 }
