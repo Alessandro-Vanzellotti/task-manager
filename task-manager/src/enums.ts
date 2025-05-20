@@ -8,5 +8,5 @@ export enum priorityLevelsEnum {
 export enum progressEnum {
   pending = "Pending",
   inProgress = "In progress",
-  complete = "Complete",
+  done = "Done",
 }

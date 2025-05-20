@@ -1,11 +1,17 @@
 .header {
-  padding: 10px 0 10px 4.5%;
+  padding: 10px 0 10px 3%;
+
+  &__status-board {
+    display: flex;
+    justify-content: flex-end;
+    gap: 35px;
+    padding-right: 35px;
+  }
 }
 
 .task-list {
-  padding: 4.5%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  gap: 15px;
+  justify-content: flex-start;
+  gap: 5%;
 }
