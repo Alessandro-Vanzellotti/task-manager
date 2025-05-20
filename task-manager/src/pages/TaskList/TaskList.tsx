@@ -4,6 +4,8 @@ import { Task } from "../../components/Task/Task";
 import { TaskType } from "../../types";
 import { v4 as uuidv4 } from "uuid";
 import { getAllTasks } from "../../api/api";
+import { Dashboard } from "../../components/Dashboard/Dashboard";
+import './TaskList.scss';
 
 export default function TaskList() {
   const [search, setSearch] = useState<string>("");
@@ -25,8 +27,9 @@ export default function TaskList() {
 
   return (
     <>
-      <header>
+      <header className={'task-list__header'}>
         <Search search={search} setSearch={setSearch} />
+        <Dashboard taskList={taskList} />
       </header>
 
       <main>

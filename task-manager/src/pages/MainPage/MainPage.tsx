@@ -6,10 +6,10 @@ export default function MainPage() {
 
     return (
         <>
-                <Navbar />
-                <div>
-                    <Outlet />
-                </div>
+            <Navbar />
+            <div>
+                <Outlet />
+            </div>
         </>
     )
 }
