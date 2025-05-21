@@ -1,10 +1,60 @@
-.header {
-  padding: 0px 0 10px 3%;
+body.active-modal {
+    overflow-y: hidden;
 }
 
-.task-list {
+.wrapper {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 5%;
+
+  .filter {
+    background-color: aquamarine;
+    width: 300px;
+    margin: 1rem 0 0 1rem;
+    border: solid rgb(110, 109, 109) 1.5px;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .content {
+    
+    width: fit-content;
+    padding: 0 35px;
+
+    &__labels {
+      display: flex;
+      background-color: bisque;
+      height: 40px;
+      
+      .title {
+        width: 25%;
+        margin: 0;
+        line-height: 1cm;
+        text-align: center;
+        background-color: cadetblue;
+      }
+
+      .progress {
+        width: 25%;
+        margin: 0;
+        line-height: 1cm;
+        text-align: center;
+        background-color: rgb(105, 189, 105);
+      }
+
+      .priority-level {
+        width: 25%;
+        margin: 0;
+        line-height: 1cm;
+        text-align: center;
+        background-color: rgb(186, 105, 189);
+      }
+    }
+
+    &__task-list {
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 3%;
+    }
+  }
 }

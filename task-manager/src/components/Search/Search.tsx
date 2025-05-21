@@ -1,4 +1,5 @@
 import "./Search.scss";
+import { HiMagnifyingGlass } from "react-icons/hi2";
 
 type Props = {
   search: string;
@@ -8,7 +9,7 @@ type Props = {
 export const Search: React.FC<Props> = ({ search, setSearch }) => {
   return (
     <div className={"search"}>
-      <label className={"search__label"}>Search</label>
+      <HiMagnifyingGlass />
       <input
         type="text"
         className={"search__input"}

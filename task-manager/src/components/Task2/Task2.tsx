@@ -9,10 +9,9 @@ import { deleteTask, getAllTasks } from "../../api/api";
 type Props = {
   task: TaskType;
   setTaskList: Dispatch<SetStateAction<TaskType[]>>;
-  toggleModal: () => void;
 };
 
-export const Task: React.FC<Props> = ({ task, setTaskList, toggleModal }) => {
+export const Task2: React.FC<Props> = ({ task, setTaskList }) => {
   const navigate = useNavigate();
 
   const handleTaskRemoval = async (): Promise<void> => {
@@ -26,14 +25,9 @@ export const Task: React.FC<Props> = ({ task, setTaskList, toggleModal }) => {
   };
 
   return (
-    <li className={"task"} onClick={toggleModal}>
-
-        <h2 className={"task__title"}> {task.title} </h2>
-
-        <p className={'task__progress'}> {task.progress} </p>
-
-        <p className={'task__priority-level'}> {task.priorityLevel} </p>
-
+    <li className={"task"}>
+      <header className={"task__header"}>
+        <h2 className={"task__title"}>{task.title}</h2>
         <div className={"task__buttons"}>
           <button
             className={"task__edit-button button"}
@@ -48,7 +42,15 @@ export const Task: React.FC<Props> = ({ task, setTaskList, toggleModal }) => {
             <RiDeleteBin6Line />
           </button>
         </div>
+      </header>
 
+      <section className={"task__description"}>
+        <p className={"task__description-text"}>{task.description}</p>
+      </section>
+      <footer className={"task__footer"}>
+        <p>{`Progress: ${task.progress}`}</p>
+        <p>{`Priority Level: ${task.priorityLevel}`}</p>
+      </footer>
     </li>
   );
 };
