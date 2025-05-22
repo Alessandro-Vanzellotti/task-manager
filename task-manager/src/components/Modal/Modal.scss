@@ -1,24 +1,25 @@
 .modal, .overlay {
     width: 100vw;
-      height: 100vh;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    cursor: initial;
 
     &__content {
 
     position: absolute;
-      top: 40%;
+      top: 45%;
       left: 50%;
       transform: translate(-50%, -50%);
       line-height: 1.4;
-      background: #f1f1f1;
-      padding: 14px 28px;
-      border-radius: 3px;
-      max-width: 600px;
-      min-width: 300px;
+      background-color: rgb(254 254 254);
+      border-radius: 10px;
+      width: 450px;
+      height: 250px;
+      padding: 10px 30px;
 
     .modal__header {
     display: flex;
@@ -28,6 +29,20 @@
 
     .modal__title {
       margin: 0;
+    }
+
+    .task__edit-button {
+      background-color: #f5e70b;
+
+        &:hover {
+        opacity: 0.9;
+        cursor: pointer;
+      }
+
+      &:active {
+        opacity: 0.8;
+      }
+    }
     }
 
   }
@@ -49,12 +64,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-
-    select {
-      height: fit-content;
-    }
   }
-    }
 }
 
 .overlay {

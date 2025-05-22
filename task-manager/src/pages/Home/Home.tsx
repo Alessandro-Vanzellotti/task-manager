@@ -13,9 +13,6 @@ export default function Home() {
   const [search, setSearch] = useState<string>("");
   const regexp = new RegExp(search, "i");
 
-  const [modal, setModal] = useState<boolean>(false);
-  const toggleModal = () => setModal(!modal);
-
   useEffect(() => {
     const getTaskList = async () => {
       try {
@@ -43,24 +40,23 @@ export default function Home() {
 
       <main className={'content'}>
         <Dashboard taskList={taskList}/>
-        {modal && (<Modal modal={modal} toggleModal={toggleModal} />)}
 
         <div className={'content__labels'}>
           <p className={'title'} >Title</p>
           <p className={'progress'}>Progress</p>
           <p className={'priority-level'}>Prioritty Level</p>
         </div>
-        <ul className={"content__task-list"}>
+        <div className={"content__task-list"}>
           {taskList.map((task: TaskType) => {
             if (task.title.match(regexp)) {
               return (
-                <Task key={uuidv4()} toggleModal={toggleModal} task={task} setTaskList={setTaskList} />
+                  <Task key={uuidv4()} task={task} setTaskList={setTaskList} />
               );
             } else {
               return "";
             }
           })}
-        </ul>
+        </div>
       </main>
     </div>
   );

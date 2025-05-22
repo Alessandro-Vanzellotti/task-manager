@@ -1,52 +1,56 @@
-.task {
-  display: flex;
-  align-items: center;
-  margin: 0 0.2rem 1.5rem 0;
-  padding: 10px 30px;
-  height: 30px;
-  width: 100%;
-  border: solid rgb(110, 109, 109) 1.5px;
-  border-radius: 10px;
-  box-shadow: 5px 7px 3px rgb(155, 154, 154), -5px 3px 3px rgb(155, 154, 154);
-  cursor: pointer;
+.wrapper {
+  
+  .task {
+    display: flex;
+    align-items: center;
+    margin: 0 0.2rem 1.5rem 0;
+    padding: 10px 30px;
+    height: 30px;
+    width: 100%;
+    border: solid rgb(110, 109, 109) 1.5px;
+    border-radius: 10px;
+    box-shadow: 5px 7px 3px rgb(155, 154, 154), -5px 3px 3px rgb(155, 154, 154);
+    cursor: pointer;
+
 
     &__title {
       width: 25%;
     }
-
+  
     &__progress {
       width: 25%;
       text-align: center;
     }
-
+  
     &__priority-level {
       width: 25%;
       text-align: center;
     }
-
+  
     &__buttons {
-
       width: 25%;
       display: flex;
       justify-content: flex-end;
-
+  
       .task__delete-button {
         background-color: rgb(227 69 94);
       }
-
+  
       .task__edit-button {
         background-color: #f5e70b;
       }
-
+  
       .button {
         &:hover {
           opacity: 0.9;
           cursor: pointer;
         }
-
+  
         &:active {
           opacity: 0.8;
         }
       }
     }
+  }
+
 }

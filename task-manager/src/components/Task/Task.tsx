@@ -1,19 +1,23 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { TaskType } from "../../types";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdOutlineEdit } from "react-icons/md";
 import "./Task.scss";
 import { useNavigate } from "react-router-dom";
 import { deleteTask, getAllTasks } from "../../api/api";
+import { Modal } from "../Modal/Modal";
 
 type Props = {
   task: TaskType;
   setTaskList: Dispatch<SetStateAction<TaskType[]>>;
-  toggleModal: () => void;
 };
 
-export const Task: React.FC<Props> = ({ task, setTaskList, toggleModal }) => {
+export const Task: React.FC<Props> = ({ task, setTaskList }) => {
+
   const navigate = useNavigate();
+
+   const [modal, setModal] = useState<boolean>(false);
+    const toggleModal = () => setModal(!modal);
 
   const handleTaskRemoval = async (): Promise<void> => {
     await deleteTask(task._id);
@@ -25,30 +29,37 @@ export const Task: React.FC<Props> = ({ task, setTaskList, toggleModal }) => {
     navigate(`/tasks/${task._id}`);
   };
 
+  
+
   return (
-    <li className={"task"} onClick={toggleModal}>
+      <div className={"wrapper"} >
+          {modal && (<Modal modal={modal} toggleModal={toggleModal} task={task} handleTaskEditing={handleTaskEditing} />)}
 
-        <h2 className={"task__title"}> {task.title} </h2>
+          <div className={"task"} onClick={toggleModal}>
 
-        <p className={'task__progress'}> {task.progress} </p>
+          <h2 className={"task__title"}> {task.title} </h2>
 
-        <p className={'task__priority-level'}> {task.priorityLevel} </p>
+          <p className={'task__progress'}> {task.progress} </p>
 
-        <div className={"task__buttons"}>
-          <button
-            className={"task__edit-button button"}
-            onClick={() => handleTaskEditing()}
-          >
-            <MdOutlineEdit />
-          </button>
-          <button
-            className={"task__delete-button button"}
-            onClick={() => handleTaskRemoval()}
-          >
-            <RiDeleteBin6Line />
-          </button>
-        </div>
+          <p className={'task__priority-level'}> {task.priorityLevel} </p>
 
-    </li>
+          <div className={"task__buttons"}>
+            <button
+              className={"task__edit-button button"}
+              onClick={() => handleTaskEditing()}
+            >
+              <MdOutlineEdit />
+            </button>
+            <button
+              className={"task__delete-button button"}
+              onClick={() => handleTaskRemoval()}
+            >
+              <RiDeleteBin6Line />
+            </button>
+          </div>
+          </div>
+
+
+      </div>
   );
 };
