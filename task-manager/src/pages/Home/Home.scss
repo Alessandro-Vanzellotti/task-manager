@@ -1,12 +1,21 @@
 .wrapper {
   display: flex;
 
-  .filter {
+  .filters {
     width: 300px;
     margin: 1rem 0 0 1rem;
     border: solid rgb(110, 109, 109) 1.5px;
     border-radius: 10px;
     padding: 10px;
+
+    &__tag {
+      width: fit-content;
+      cursor: pointer;
+
+      &:hover {
+        color: gray;
+      }
+    }
   }
 
   .content {
@@ -16,38 +25,36 @@
 
     &__labels {
       display: flex;
-      background-color: bisque;
       height: 40px;
-      
-      .title {
-        width: 25%;
+      margin-bottom: 10px;
+      border: solid 2px gray;
+      border-radius: 3px;
+      padding: 0 20px;
+
+      .label {
         margin: 0;
         line-height: 1cm;
         text-align: center;
-        background-color: cadetblue;
+        border-right: solid 1px gray;
+      }
+      
+      .title {
+        width: 40%;
       }
 
       .progress {
-        width: 25%;
-        margin: 0;
-        line-height: 1cm;
-        text-align: center;
-        background-color: rgb(105, 189, 105);
+        width: 20%;
       }
 
       .priority-level {
-        width: 25%;
-        margin: 0;
-        line-height: 1cm;
-        text-align: center;
-        background-color: rgb(186, 105, 189);
+        width: 20%;
       }
     }
 
     &__task-list {
       display: flex;
       flex-direction: column;
-      flex-wrap: wrap;
+      gap: 20px;
     }
   }
 }

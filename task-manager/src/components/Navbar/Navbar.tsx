@@ -10,9 +10,6 @@ export default function Navbar() {
           <Link to="/" className={"link"}>
             Home
           </Link>
-          <Link to="/tasks" className={"link"}>
-            Tasks
-          </Link>
         </div>
       </nav>
     </>

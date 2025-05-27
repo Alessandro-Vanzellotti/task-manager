@@ -6,6 +6,7 @@ import "./Task.scss";
 import { useNavigate } from "react-router-dom";
 import { deleteTask, getAllTasks } from "../../api/api";
 import { Modal } from "../Modal/Modal";
+import { priorityLevelsEnum } from "../../enums";
 
 type Props = {
   task: TaskType;
@@ -16,8 +17,16 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
 
   const navigate = useNavigate();
 
-   const [modal, setModal] = useState<boolean>(false);
-    const toggleModal = () => setModal(!modal);
+  const [modal, setModal] = useState<boolean>(false);
+  const toggleModal = () => setModal(!modal);
+  const [priorityColor, setPriorityColor] = useState<string>('');
+    
+  const priorityColors = {
+    high: '#fe50bc',
+    medium: '#4b8ffa',
+    low: '#00c068',
+    none: '#bdbdbd',
+  }
 
   const handleTaskRemoval = async (): Promise<void> => {
     await deleteTask(task._id);
@@ -28,6 +37,16 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
   const handleTaskEditing = (): void => {
     navigate(`/tasks/${task._id}`);
   };
+
+  const getPriorityColor = () => {
+    switch (task.priorityLevel) {
+      case priorityLevelsEnum.none: return '#bdbdbd';
+      case priorityLevelsEnum.low: return '#00c068';
+      case priorityLevelsEnum.medium: return '#4b8ffa';
+      case priorityLevelsEnum.high: return '#fe50bc';
+        
+    }
+  }
 
   
 
@@ -41,7 +60,7 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
 
           <p className={'task__progress'}> {task.progress} </p>
 
-          <p className={'task__priority-level'}> {task.priorityLevel} </p>
+          <p className={'task__priority-level'} style={{backgroundColor: `${getPriorityColor()}`}}> {task.priorityLevel} </p>
 
           <div className={"task__buttons"}>
             <button

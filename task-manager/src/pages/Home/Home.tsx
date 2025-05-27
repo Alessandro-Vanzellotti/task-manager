@@ -6,12 +6,27 @@ import { useEffect, useState } from "react";
 import { getAllTasks } from "../../api/api";
 import { Dashboard } from '../../components/Dashboard/Dashboard';
 import { Search } from "../../components/Search/Search";
-import { Modal } from "../../components/Modal/Modal";
 
 export default function Home() {
   const [taskList, setTaskList] = useState<TaskType[]>([]);
+  const [taskFilter, setTaskFilter] = useState<string>('All');
   const [search, setSearch] = useState<string>("");
   const regexp = new RegExp(search, "i");
+
+  const getProgressCount = (progress: string): string => {
+    let counter = 0;
+
+    taskList.forEach((task: TaskType) => {
+      if(task.progress === progress) counter++;
+    });
+    return counter.toString();
+  }
+
+  const filterTasksByProgress = (list: TaskType[]) => {
+    const filteredTasks: TaskType[] = list;
+    if (taskFilter === 'All') return list;
+      return filteredTasks.filter(task => task.progress === taskFilter);
+  }
 
   useEffect(() => {
     const getTaskList = async () => {
@@ -25,32 +40,30 @@ export default function Home() {
     getTaskList();
   }, [setTaskList]);
 
-  
-
   return (
     <div className={'wrapper'}>
 
-      <section className={'filter'}>
+      <section className={'filters'}>
           <Search search={search} setSearch={setSearch} />
-          <p>All (6)</p>
-          <p>Pending (1)</p>
-          <p>In progress (2)</p>
-          <p>Done (1)</p>
+          <p className={'filters__tag'} onClick={() => setTaskFilter('All')}>{`All (${taskList.length})`}</p>
+          <p className={'filters__tag'} onClick={() => setTaskFilter('Pending')}>{`Pending (${getProgressCount('Pending')})`}</p>
+          <p className={'filters__tag'} onClick={() => setTaskFilter('In progress')}>{`In progress (${getProgressCount('In progress')})`}</p>
+          <p className={'filters__tag'} onClick={() => setTaskFilter('Done')}>{`Done (${getProgressCount('Done')})`}</p>
         </section>
 
       <main className={'content'}>
         <Dashboard taskList={taskList}/>
 
         <div className={'content__labels'}>
-          <p className={'title'} >Title</p>
-          <p className={'progress'}>Progress</p>
-          <p className={'priority-level'}>Prioritty Level</p>
+          <p className={'label title'} >Title</p>
+          <p className={'label progress'}>Progress</p>
+          <p className={'label priority-level'}>Prioritty Level</p>
         </div>
         <div className={"content__task-list"}>
-          {taskList.map((task: TaskType) => {
+          {filterTasksByProgress(taskList).map((task: TaskType) => {
             if (task.title.match(regexp)) {
               return (
-                  <Task key={uuidv4()} task={task} setTaskList={setTaskList} />
+                <Task key={uuidv4()} task={task} setTaskList={setTaskList} />
               );
             } else {
               return "";
