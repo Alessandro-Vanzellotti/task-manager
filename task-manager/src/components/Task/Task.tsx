@@ -6,7 +6,7 @@ import "./Task.scss";
 import { useNavigate } from "react-router-dom";
 import { deleteTask, getAllTasks } from "../../api/api";
 import { Modal } from "../Modal/Modal";
-import { priorityLevelsEnum } from "../../enums";
+import { priorityLevelsEnum, progressEnum } from "../../enums";
 
 type Props = {
   task: TaskType;
@@ -40,6 +40,15 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
     }
   }
 
+    const getProgressClass = () => {
+    switch (task.progress) {
+      case progressEnum.pending: return 'progress-pending';
+      case progressEnum.inProgress: return 'progress-inProgress';
+      case progressEnum.done: return 'progress-done';
+        
+    }
+  }
+
   
 
   return (
@@ -50,7 +59,7 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
 
           <h2 className={"task__title"}> {task.title} </h2>
 
-          <p className={'task__progress'}> {task.progress} </p>
+          <p className={`task__progress ${getProgressClass()}`}> {task.progress} </p>
 
           <p className={`task__priority-level ${getPriorityClass()}`} > {task.priorityLevel} </p>
 

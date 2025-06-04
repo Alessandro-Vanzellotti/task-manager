@@ -6,39 +6,22 @@ import { useEffect, useState } from "react";
 import { getAllTasks } from "../../api/api";
 import { Dashboard } from '../../components/Dashboard/Dashboard';
 import { Search } from "../../components/Search/Search";
+import { progressEnum } from "../../enums";
 
 export default function Home() {
   const [taskList, setTaskList] = useState<TaskType[]>([]);
   const [taskFilter, setTaskFilter] = useState<string>('All');
-  const [filterColor, setFilterColor] = useState('');
   const [search, setSearch] = useState<string>("");
   const regexp = new RegExp(search, "i");
 
-  const filterColors = {
-    pending: '#bdbdbd',
-    inProgress: 'rgb(253 171 60)',
-    done: 'rgb(3 199 117)',
-    all: 'rgb(254 254 254)'
-  }
-
-  const handleFilterChange = (progress: string) => {
-    setTaskFilter(progress);
-
-    switch(progress) {
-      case 'Pending':
-        setFilterColor(filterColors.pending);
-        break;
-      case 'In progress':
-        setFilterColor(filterColors.inProgress);
-        break;
-      case 'Done':
-        setFilterColor(filterColors.done);
-        break;
-      default:
-        setFilterColor(filterColors.all)
+      const getProgressClass = () => {
+        switch (taskFilter) {
+          case 'All': return 'progress-all';
+          case progressEnum.pending: return 'progress-pending';
+          case progressEnum.inProgress: return 'progress-inProgress';
+          case progressEnum.done: return 'progress-done';
+        }
     }
-    
-  }
 
   const getProgressCount = (progress: string): string => {
     let counter = 0;
@@ -70,12 +53,12 @@ export default function Home() {
   return (
     <div className={'wrapper'}>
 
-      <section className={'filters'} style={{backgroundColor: filterColor}}>
+      <section className={`filters ${getProgressClass()}`} >
           <Search search={search} setSearch={setSearch} />
-          <p className={'filters__tag'} onClick={() => handleFilterChange('All')}>{`All (${taskList.length})`}</p>
-          <p className={'filters__tag'} onClick={() => handleFilterChange('Pending')}>{`Pending (${getProgressCount('Pending')})`}</p>
-          <p className={'filters__tag'} onClick={() => handleFilterChange('In progress')}>{`In progress (${getProgressCount('In progress')})`}</p>
-          <p className={'filters__tag'} onClick={() => handleFilterChange('Done')}>{`Done (${getProgressCount('Done')})`}</p>
+          <p className={'filters__tag'} onClick={() => setTaskFilter('All')}>{`All (${taskList.length})`}</p>
+          <p className={'filters__tag'} onClick={() => setTaskFilter('Pending')}>{`Pending (${getProgressCount('Pending')})`}</p>
+          <p className={'filters__tag'} onClick={() => setTaskFilter('In progress')}>{`In progress (${getProgressCount('In progress')})`}</p>
+          <p className={'filters__tag'} onClick={() => setTaskFilter('Done')}>{`Done (${getProgressCount('Done')})`}</p>
         </section>
 
       <main className={'content'}>

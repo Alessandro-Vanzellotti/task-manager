@@ -25,6 +25,7 @@
       text-align: center;
       line-height: 3;
       border-right: solid 1px gray;
+      color: white;
     }
   
     &__priority-level {
@@ -73,6 +74,16 @@
     }
     .priority-high {
       background-color: #fe50bc;
+    }
+
+    .progress-pending {
+     background-color: #bdbdbd;
+    }
+    .progress-inProgress {
+     background-color: rgb(253 171 60);
+    }
+    .progress-done {
+     background-color: rgb(3 199 117);
     }
   }
 
