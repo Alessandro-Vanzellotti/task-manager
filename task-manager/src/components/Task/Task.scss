@@ -33,6 +33,7 @@
       text-align: center;
       line-height: 3;
       border-right: solid 1px gray;
+      color: white;
     }
   
     &__buttons {
@@ -59,6 +60,19 @@
           opacity: 0.8;
         }
       }
+    }
+
+    .priority-none {
+      background-color: #bdbdbd;
+    }
+    .priority-low {
+      background-color: #00c068;
+    }
+    .priority-medium {
+      background-color: #4b8ffa;
+    }
+    .priority-high {
+      background-color: #fe50bc;
     }
   }
 

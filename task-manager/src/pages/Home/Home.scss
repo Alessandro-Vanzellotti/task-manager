@@ -1,9 +1,11 @@
 .wrapper {
   display: flex;
+  height: fit-content;
 
   .filters {
     width: 300px;
-    margin: 1rem 0 0 1rem;
+    height: calc(100vh - 125px);
+    margin: 15px 0 0 15px;
     border: solid rgb(110, 109, 109) 1.5px;
     border-radius: 10px;
     padding: 10px;
@@ -21,6 +23,7 @@
   .content {
     
     width: 100%;
+    height: fit-content;
     padding: 0 35px;
 
     &__labels {
@@ -54,6 +57,7 @@
     &__task-list {
       display: flex;
       flex-direction: column;
+      justify-content: flex-start;
       gap: 20px;
     }
   }
