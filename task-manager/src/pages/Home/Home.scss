@@ -2,25 +2,6 @@
   display: flex;
   height: fit-content;
 
-  .filters {
-    width: 300px;
-    height: calc(100vh - 125px);
-    margin: 15px 0 0 15px;
-    border: solid rgb(110, 109, 109) 1.5px;
-    border-radius: 10px;
-    padding: 10px;
-    color: #000;
-
-    &__tag {
-      width: fit-content;
-      cursor: pointer;
-
-      &:hover {
-        color: gray;
-      }
-    }
-  }
-
   .content {
     
     width: 100%;
@@ -62,20 +43,4 @@
       gap: 20px;
     }
   }
-
-  .progress-all {
-      background-color: rgb(254 254 254);
-    }
-    .progress-pending {
-     background-color: #bdbdbd;
-     color: #fff;
-    }
-    .progress-inProgress {
-     background-color: rgb(253 171 60);
-     color: #fff;
-    }
-    .progress-done {
-     background-color: rgb(3 199 117);
-     color: #fff;
-    }
 }

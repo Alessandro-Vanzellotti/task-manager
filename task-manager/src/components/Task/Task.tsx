@@ -49,8 +49,6 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
     }
   }
 
-  
-
   return (
       <div className={"wrapper"} >
           {modal && (<Modal modal={modal} toggleModal={toggleModal} task={task} handleTaskEditing={handleTaskEditing} />)}
