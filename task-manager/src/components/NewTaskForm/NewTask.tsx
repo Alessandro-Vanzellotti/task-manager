@@ -1,6 +1,6 @@
 import { TaskType } from "../../types";
 import { IoMdAdd } from "react-icons/io";
-import "./NewTaskForm.scss";
+import "./NewTask.scss";
 import { Dispatch, SetStateAction, useState } from "react";
 import { NewTaskModal } from "../NewTaskModal/NewTaskModal";
 
@@ -9,7 +9,7 @@ type Props = {
   setTaskList: Dispatch<SetStateAction<TaskType[]>>;
 };
 
-export const NewTaskForm: React.FC<Props> = ({ taskList, setTaskList }) => {
+export const NewTask: React.FC<Props> = ({ taskList, setTaskList }) => {
   
   const [modal, setModal] = useState<boolean>(false);
   const toggleModal = () => setModal(!modal);

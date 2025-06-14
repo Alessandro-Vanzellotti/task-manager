@@ -1,12 +1,11 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { TaskType } from "../../types";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { MdOutlineEdit } from "react-icons/md";
 import "./Task.scss";
 import { useNavigate } from "react-router-dom";
 import { deleteTask, getAllTasks } from "../../api/api";
 import { Modal } from "../Modal/Modal";
 import { priorityLevelsEnum, progressEnum } from "../../enums";
+import { OptionsDropdown } from "../OptionsDropdown/OptionsDropdown";
 
 type Props = {
   task: TaskType;
@@ -53,28 +52,15 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
       <div className={"wrapper"} >
           {modal && (<Modal modal={modal} toggleModal={toggleModal} task={task} handleTaskEditing={handleTaskEditing} />)}
 
-          <div className={"task"} onClick={toggleModal}>
+          <div className={"task"}>
 
-          <h2 className={"task__title"}> {task.title} </h2>
+          <h2 className={"task__title"} onClick={toggleModal} > {task.title} </h2>
 
           <p className={`task__progress ${getProgressClass()}`}> {task.progress} </p>
 
           <p className={`task__priority-level ${getPriorityClass()}`} > {task.priorityLevel} </p>
 
-          <div className={"task__buttons"}>
-            <button
-              className={"task__edit-button button"}
-              onClick={() => handleTaskEditing()}
-            >
-              <MdOutlineEdit />
-            </button>
-            <button
-              className={"task__delete-button button"}
-              onClick={() => handleTaskRemoval()}
-            >
-              <RiDeleteBin6Line />
-            </button>
-          </div>
+          <OptionsDropdown toggleModal={toggleModal} />
           </div>
 
 

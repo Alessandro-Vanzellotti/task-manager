@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { getAllTasks } from "../../api/api";
 import { Dashboard } from '../../components/Dashboard/Dashboard';
 import { Filters } from "../../components/Filters/Filters";
-import { NewTaskForm } from "../../components/NewTaskForm/NewTaskForm";
+import { NewTask } from "../../components/NewTaskForm/NewTask";
 
 export default function Home() {
   const [taskList, setTaskList] = useState<TaskType[]>([]);
@@ -46,7 +46,7 @@ export default function Home() {
           <p className={'label priority-level'}>Priority Level</p>
         </div>
         <div className={"content__task-list"}>
-          <NewTaskForm taskList={taskList} setTaskList={setTaskList} />
+          <NewTask taskList={taskList} setTaskList={setTaskList} />
           {filterTasksByProgress(taskList).map((task: TaskType) => {
             if (task.title.match(regexp)) {
               return (
