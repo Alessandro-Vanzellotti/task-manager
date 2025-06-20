@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { getAllTasks } from "../../api/api";
 import { Dashboard } from '../../components/Dashboard/Dashboard';
 import { Filters } from "../../components/Filters/Filters";
-import { NewTask } from "../../components/NewTaskForm/NewTask";
+import { NewTask } from "../../components/NewTask/NewTask";
 
 export default function Home() {
   const [taskList, setTaskList] = useState<TaskType[]>([]);

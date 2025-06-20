@@ -1,6 +1,6 @@
 import { MdOutlineEdit } from 'react-icons/md';
 import { TaskType } from '../../types';
-import './Modal.scss';
+import './DetailsModal.scss';
 
 type Props = {
   modal: boolean;
@@ -9,7 +9,7 @@ type Props = {
   handleTaskEditing: () => void;
 };
 
-export const Modal: React.FC<Props> = ({modal, toggleModal, task, handleTaskEditing }) => {
+export const DetailsModal: React.FC<Props> = ({modal, toggleModal, task, handleTaskEditing }) => {
 
     if(modal) {
       document.body.classList.add('active-modal');
@@ -19,14 +19,14 @@ export const Modal: React.FC<Props> = ({modal, toggleModal, task, handleTaskEdit
 
   return (
 
-    <div className={"modal"}>
-        <div className={'overlay'} onClick={toggleModal}></div>
-        <div className={'modal__content'}>
-            <header className={"modal__header"}>
-            <h2 className={"modal__title"}>{task.title}</h2>
-            <div className={"task__buttons"}>
+    <div className={"details-modal"}>
+        <div className={'details-modal__overlay'} onClick={toggleModal}></div>
+        <div className={'details-modal__content'}>
+            <header className={"details-modal__header"}>
+            <h2 className={"details-modal__title"}>{task.title}</h2>
+            <div className={"details-modal__buttons"}>
                       <button
-                        className={"task__edit-button button"}
+                        className={"details-modal__edit-button button"}
                         onClick={() => handleTaskEditing()}
                       >
                         <MdOutlineEdit />
@@ -34,10 +34,10 @@ export const Modal: React.FC<Props> = ({modal, toggleModal, task, handleTaskEdit
                     </div>
           </header>
     
-          <section className={"modal__description"}>
-            <p className={"modal__description-text"}>{task.description}</p>
+          <section className={"details-modal__description"}>
+            <p className={"details-modal__description-text"}>{task.description}</p>
           </section>
-          <footer className={"modal__footer"}>
+          <footer className={"details-modal__footer"}>
             <p>{`Progress: ${task.progress}`}</p>
             <p>{`Priority Level: ${task.priorityLevel}`}</p>
           </footer>

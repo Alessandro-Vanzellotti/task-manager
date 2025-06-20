@@ -10,7 +10,7 @@ type Props = {
   modal: boolean;
   toggleModal: () => void;
   taskList: TaskType[];
-    setTaskList: Dispatch<SetStateAction<TaskType[]>>;
+  setTaskList: Dispatch<SetStateAction<TaskType[]>>;
 };
 
 export const NewTaskModal: React.FC<Props> = ({modal, toggleModal, taskList, setTaskList }) => {
@@ -82,10 +82,10 @@ export const NewTaskModal: React.FC<Props> = ({modal, toggleModal, taskList, set
 
   return (
 
-    <div className={"modal"}>
-        <div className={'overlay'} onClick={toggleModal}></div>
-        <form className={'modal__content'} onSubmit={handleSubmit(onSubmit)}>
-        <header className={"new-form__header"}>
+    <div className={"new-modal"}>
+        <div className={'new-modal__overlay'} onClick={toggleModal}></div>
+        <form className={'new-form'} onSubmit={handleSubmit(onSubmit)}>
+          
           <div className={"new-form__title"}>
             <label htmlFor="title">Title:</label>
             <input
@@ -104,7 +104,6 @@ export const NewTaskModal: React.FC<Props> = ({modal, toggleModal, taskList, set
               {errors.title?.message}
             </p>
           </div>
-        </header>
 
         <section className={"new-form__description"}>
           <label htmlFor="description">Description:</label>

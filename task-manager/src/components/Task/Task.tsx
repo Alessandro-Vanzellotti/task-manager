@@ -3,7 +3,7 @@ import { TaskType } from "../../types";
 import "./Task.scss";
 import { useNavigate } from "react-router-dom";
 import { deleteTask, getAllTasks } from "../../api/api";
-import { Modal } from "../Modal/Modal";
+import { DetailsModal } from "../DetailsModal/DetailsModal";
 import { priorityLevelsEnum, progressEnum } from "../../enums";
 import { OptionsDropdown } from "../OptionsDropdown/OptionsDropdown";
 
@@ -50,7 +50,7 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
 
   return (
       <div className={"wrapper"} >
-          {modal && (<Modal modal={modal} toggleModal={toggleModal} task={task} handleTaskEditing={handleTaskEditing} />)}
+          {modal && (<DetailsModal modal={modal} toggleModal={toggleModal} task={task} handleTaskEditing={handleTaskEditing} />)}
 
           <div className={"task"}>
 

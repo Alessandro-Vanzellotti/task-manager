@@ -22,16 +22,17 @@
         position: absolute;
         top: 25px;
         list-style-type: none;
-        z-index: 1;
         margin: 0;
         text-align: center;
         padding: 0 10px;
         color: #000;
+        z-index: 1;
 
         li {
             border: solid rgb(187, 184, 184) 1px;
             padding: 4px 10px;
             background-color: #efefef;
+            
         }
     }
 }
