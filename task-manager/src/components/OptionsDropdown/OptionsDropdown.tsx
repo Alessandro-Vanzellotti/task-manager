@@ -28,8 +28,8 @@ export const OptionsDropdown: React.FC<Props> = ({toggleModal}) => {
     return (
         <div className='options' >
             <button
-              className='options__button'
-              onClick={() => setOpen(!open)}
+                className='options__button'
+                onClick={() => setOpen(!open)}
                 ref={dropdownRef}              
             >
               <HiOutlineDotsHorizontal />
