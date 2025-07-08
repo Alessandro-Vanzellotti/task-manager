@@ -7,6 +7,7 @@ import { getAllTasks } from "../../api/api";
 import { Dashboard } from '../../components/Dashboard/Dashboard';
 import { Filters } from "../../components/Filters/Filters";
 import { NewTask } from "../../components/NewTask/NewTask";
+import { TaskModal } from "../../components/TaskModal/TaskModal";
 
 export default function Home() {
   const [taskList, setTaskList] = useState<TaskType[]>([]);
@@ -39,7 +40,6 @@ export default function Home() {
 
       <main className={'content'}>
         <Dashboard taskList={taskList}/>
-
         <div className={'content__labels'}>
           <p className={'label title'} >Title</p>
           <p className={'label progress'}>Progress</p>

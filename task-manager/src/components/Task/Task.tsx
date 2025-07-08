@@ -6,6 +6,8 @@ import { deleteTask, getAllTasks } from "../../api/api";
 import { DetailsModal } from "../DetailsModal/DetailsModal";
 import { priorityLevelsEnum, progressEnum } from "../../enums";
 import { OptionsDropdown } from "../OptionsDropdown/OptionsDropdown";
+import { TaskModal } from "../TaskModal/TaskModal";
+import TaskList from "../../pages/TaskList/TaskList";
 
 type Props = {
   task: TaskType;
@@ -17,6 +19,7 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
   const navigate = useNavigate();
 
   const [modal, setModal] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState(false);
   const toggleModal = () => setModal(!modal);
 
   const handleTaskRemoval = async (): Promise<void> => {
@@ -25,9 +28,9 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
     setTaskList(newTaskList);
   };
 
-  const handleTaskEditing = (): void => {
+  /* const handleTaskEditing = (): void => {
     navigate(`/tasks/${task._id}`);
-  };
+  }; */
 
   const getPriorityClass = () => {
     switch (task.priorityLevel) {
@@ -50,7 +53,7 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
 
   return (
       <div className={"wrapper"} >
-          {modal && (<DetailsModal modal={modal} toggleModal={toggleModal} task={task} handleTaskEditing={handleTaskEditing} />)}
+          {modal && (<TaskModal modal={modal} toggleModal={toggleModal} task={task} isEditing={isEditing} setIsEditing={setIsEditing} />)}
 
           <div className={"task"}>
 
@@ -60,7 +63,7 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
 
           <p className={`task__priority-level ${getPriorityClass()}`} > {task.priorityLevel} </p>
 
-          <OptionsDropdown toggleModal={toggleModal} />
+          <OptionsDropdown toggleModal={toggleModal} setIsEditing={setIsEditing} />
           </div>
 
 

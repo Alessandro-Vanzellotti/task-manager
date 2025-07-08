@@ -3,13 +3,18 @@ import "./TaskEditingForm.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { updateTask } from "../../api/api";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   task: TaskType;
+  toggleModal: () => void;
+  modal: boolean;
+  isEditing: boolean;
+  setIsEditing: Dispatch<SetStateAction<boolean>>;
 };
 
-export const TaskEditingForm: React.FC<Props> = ({ task }) => {
-  const navigate = useNavigate();
+export const TaskEditingForm: React.FC<Props> = ({ task, toggleModal, modal, isEditing, setIsEditing }) => {
+  //const navigate = useNavigate();
 
   const {
     register,
@@ -36,64 +41,73 @@ export const TaskEditingForm: React.FC<Props> = ({ task }) => {
     };
 
     await updateTask(task._id, editedTask);
-    navigate(`/`);
+    //navigate(`/`);
   };
 
+  if(modal) {
+      document.body.classList.add('active-modal');
+    } else {
+      document.body.classList.remove('active-modal');
+      setIsEditing(false);
+    }
+
   return (
-    <form className={"form"} onSubmit={handleSubmit(onSubmit)}>
-      <header className={"form__header"}>
-        <div className={"form__title"}>
-          <label htmlFor="title">Title</label>
-          <input
-            className={"form__title-input"}
-            type="text"
-            id="item"
-            {...register("title", {
-              required: {
-                value: true,
-                message: "*Title is required",
-              },
-            })}
-            placeholder="Type a title"
-          />
-          <p role="alert" className={"error"}>
-            {errors.title?.message}
-          </p>
-        </div>
-      </header>
+    <>
+      <form className={"edit-form"} onSubmit={handleSubmit(onSubmit)}>
+        <header className={"edit-form__header"}>
+          <div className={"edit-form__title"}>
+            <label htmlFor="title">Title</label>
+            <input
+              className={"edit-form__title-input"}
+              type="text"
+              id="item"
+              {...register("title", {
+                required: {
+                  value: true,
+                  message: "*Title is required",
+                },
+              })}
+              placeholder="Type a title"
+            />
+            <p role="alert" className={"error"}>
+              {errors.title?.message}
+            </p>
+          </div>
+        </header>
 
-      <section className={"form__description"}>
-        <textarea
-          maxLength={100}
-          className={"form__description-text"}
-          {...register("description")}
-          placeholder="Type a description"
-        ></textarea>
-      </section>
+        <section className={"edit-form__description"}>
+          <textarea
+            maxLength={100}
+            className={"form__description-text"}
+            {...register("description")}
+            placeholder="Type a description"
+          ></textarea>
+        </section>
 
-      <footer className={"form__footer"}>
-        <div>
-          <label htmlFor="progress">Progress: </label>
-          <select id="progress" {...register("progress")}>
-            <option value="Pending">Pending</option>
-            <option value="In progress">In progress</option>
-            <option value="Done">Done</option>
-          </select>
-        </div>
+        <footer className={"edit-form__footer"}>
+          <div>
+            <label htmlFor="progress">Progress: </label>
+            <select id="progress" {...register("progress")}>
+              <option value="Pending">Pending</option>
+              <option value="In progress">In progress</option>
+              <option value="Done">Done</option>
+            </select>
+          </div>
 
-        <div>
-          <label htmlFor="priorityLevel">Priority Level: </label>
-          <select id="priority-levels" {...register("priorityLevel")}>
-            <option value="None">None</option>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-          </select>
-        </div>
-        <button className={"form__add-button"} type="submit">
-          Done
-        </button>
-      </footer>
-    </form>
+          <div>
+            <label htmlFor="priorityLevel">Priority Level: </label>
+            <select id="priority-levels" {...register("priorityLevel")}>
+              <option value="None">None</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+          <button className={"edit-form__add-button"} type="submit">
+            Done
+          </button>
+        </footer>
+      </form>
+    </>
   );
 };

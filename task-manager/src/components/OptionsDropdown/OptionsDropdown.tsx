@@ -1,12 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import './OptionsDropdown.scss';
 
 type Props = {
   toggleModal: () => void;
+  setIsEditing: Dispatch<SetStateAction<boolean>>;
 };
 
-export const OptionsDropdown: React.FC<Props> = ({toggleModal}) => {
+export const OptionsDropdown: React.FC<Props> = ({ toggleModal, setIsEditing }) => {
   
     const [open, setOpen] = useState<boolean>(false);
     const dropdownRef = useRef<any>(null);
@@ -16,6 +17,16 @@ export const OptionsDropdown: React.FC<Props> = ({toggleModal}) => {
         if (open && !dropdownRef.current.contains(e.target)) {
             setOpen(false);
         }
+    }
+
+    const handleDetails = () => {
+        setIsEditing(false);
+        toggleModal();
+    }
+
+    const handleEditing = () => {
+        setIsEditing(true);
+        toggleModal();
     }
 
     useEffect(() => {
@@ -35,12 +46,13 @@ export const OptionsDropdown: React.FC<Props> = ({toggleModal}) => {
               <HiOutlineDotsHorizontal />
             </button>
             {open && (
-            <ul className='options__dropdown'>
-                <li onClick={toggleModal}>Details</li>
-                <li>Edit</li>
-                <li>Delete</li>
-            </ul>
+            <div className='options__dropdown'>
+                <button onClick={handleDetails}>Details</button>
+                <button onClick={handleEditing} >Edit</button>
+                <button>Delete</button>
+            </div>
             )}
+            
         </div>
     );
 };

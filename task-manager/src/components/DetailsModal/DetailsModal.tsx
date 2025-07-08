@@ -1,37 +1,38 @@
 import { MdOutlineEdit } from 'react-icons/md';
 import { TaskType } from '../../types';
 import './DetailsModal.scss';
+import { Dispatch, SetStateAction } from 'react';
 
 type Props = {
   modal: boolean;
   toggleModal: () => void;
   task: TaskType;
-  handleTaskEditing: () => void;
+  isEditing: boolean;
+  setIsEditing: Dispatch<SetStateAction<boolean>>;
 };
 
-export const DetailsModal: React.FC<Props> = ({modal, toggleModal, task, handleTaskEditing }) => {
+export const DetailsModal: React.FC<Props> = ({modal, toggleModal, task, isEditing, setIsEditing  }) => {
 
     if(modal) {
       document.body.classList.add('active-modal');
     } else {
       document.body.classList.remove('active-modal');
+      setIsEditing(false);
     }
 
   return (
-
-    <div className={"details-modal"}>
-        <div className={'details-modal__overlay'} onClick={toggleModal}></div>
+    <>
         <div className={'details-modal__content'}>
             <header className={"details-modal__header"}>
-            <h2 className={"details-modal__title"}>{task.title}</h2>
-            <div className={"details-modal__buttons"}>
-                      <button
-                        className={"details-modal__edit-button button"}
-                        onClick={() => handleTaskEditing()}
-                      >
-                        <MdOutlineEdit />
-                      </button>
-                    </div>
+              <h2 className={"details-modal__title"}>{task.title}</h2>
+              <div className={"details-modal__buttons"}>
+                <button
+                  className={"details-modal__buttons-edit"}
+                  onClick={() => setIsEditing(true)}
+                >
+                  <MdOutlineEdit />
+                </button>
+                </div>
           </header>
     
           <section className={"details-modal__description"}>
@@ -43,7 +44,6 @@ export const DetailsModal: React.FC<Props> = ({modal, toggleModal, task, handleT
           </footer>
           <button onClick={toggleModal}>CLOSE</button>
         </div>
-          
-        </div>
+      </>
   );
 };
