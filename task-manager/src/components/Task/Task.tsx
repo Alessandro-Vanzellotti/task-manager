@@ -3,11 +3,9 @@ import { TaskType } from "../../types";
 import "./Task.scss";
 import { useNavigate } from "react-router-dom";
 import { deleteTask, getAllTasks } from "../../api/api";
-import { DetailsModal } from "../DetailsModal/DetailsModal";
 import { priorityLevelsEnum, progressEnum } from "../../enums";
 import { OptionsDropdown } from "../OptionsDropdown/OptionsDropdown";
 import { TaskModal } from "../TaskModal/TaskModal";
-import TaskList from "../../pages/TaskList/TaskList";
 
 type Props = {
   task: TaskType;
@@ -15,8 +13,6 @@ type Props = {
 };
 
 export const Task: React.FC<Props> = ({ task, setTaskList }) => {
-
-  const navigate = useNavigate();
 
   const [modal, setModal] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -28,17 +24,12 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
     setTaskList(newTaskList);
   };
 
-  /* const handleTaskEditing = (): void => {
-    navigate(`/tasks/${task._id}`);
-  }; */
-
   const getPriorityClass = () => {
     switch (task.priorityLevel) {
       case priorityLevelsEnum.none: return 'priority-none';
       case priorityLevelsEnum.low: return 'priority-low';
       case priorityLevelsEnum.medium: return 'priority-medium';
       case priorityLevelsEnum.high: return 'priority-high';
-        
     }
   }
 
@@ -47,7 +38,6 @@ export const Task: React.FC<Props> = ({ task, setTaskList }) => {
       case progressEnum.pending: return 'progress-pending';
       case progressEnum.inProgress: return 'progress-inProgress';
       case progressEnum.done: return 'progress-done';
-        
     }
   }
 
