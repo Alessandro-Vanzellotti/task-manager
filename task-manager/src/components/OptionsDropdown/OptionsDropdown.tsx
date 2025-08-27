@@ -5,9 +5,10 @@ import './OptionsDropdown.scss';
 type Props = {
   toggleModal: () => void;
   setIsEditing: Dispatch<SetStateAction<boolean>>;
+  handleTaskRemoval: () => void;
 };
 
-export const OptionsDropdown: React.FC<Props> = ({ toggleModal, setIsEditing }) => {
+export const OptionsDropdown: React.FC<Props> = ({ toggleModal, setIsEditing, handleTaskRemoval }) => {
   
     const [open, setOpen] = useState<boolean>(false);
     const dropdownRef = useRef<any>(null);
@@ -47,9 +48,9 @@ export const OptionsDropdown: React.FC<Props> = ({ toggleModal, setIsEditing }) 
             </button>
             {open && (
             <div className='options__dropdown'>
-                <button onClick={handleDetails}>Details</button>
+                <button onClick={handleDetails} >Details</button>
                 <button onClick={handleEditing} >Edit</button>
-                <button>Delete</button>
+                <button onClick={handleTaskRemoval} >Delete</button>
             </div>
             )}
             

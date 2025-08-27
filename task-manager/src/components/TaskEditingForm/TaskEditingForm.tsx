@@ -1,21 +1,24 @@
 import { IFormInput, TaskType } from "../../types";
 import "./TaskEditingForm.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { updateTask } from "../../api/api";
+import { getAllTasks, updateTask } from "../../api/api";
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   task: TaskType;
-  toggleModal: () => void;
   modal: boolean;
-  isEditing: boolean;
   setIsEditing: Dispatch<SetStateAction<boolean>>;
+  toggleModal: () => void;
+  setTaskList: Dispatch<SetStateAction<TaskType[]>>;
 };
 
-export const TaskEditingForm: React.FC<Props> = ({ task, toggleModal, modal, isEditing, setIsEditing }) => {
-  //const navigate = useNavigate();
-
+export const TaskEditingForm: React.FC<Props> = ({
+  task,
+  modal,
+  setIsEditing,
+  toggleModal,
+  setTaskList,
+}) => {
   const {
     register,
     handleSubmit,
@@ -40,16 +43,22 @@ export const TaskEditingForm: React.FC<Props> = ({ task, toggleModal, modal, isE
       progress: data.progress,
     };
 
-    await updateTask(task._id, editedTask);
-    //navigate(`/`);
+    try {
+      await updateTask(task._id, editedTask);
+      const newTaskList = await getAllTasks();
+      setTaskList(newTaskList);
+      toggleModal();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  if(modal) {
-      document.body.classList.add('active-modal');
-    } else {
-      document.body.classList.remove('active-modal');
-      setIsEditing(false);
-    }
+  if (modal) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+    setIsEditing(false);
+  }
 
   return (
     <>
@@ -67,7 +76,6 @@ export const TaskEditingForm: React.FC<Props> = ({ task, toggleModal, modal, isE
                   message: "*Title is required",
                 },
               })}
-              placeholder="Type a title"
             />
             <p role="alert" className={"error"}>
               {errors.title?.message}
@@ -76,15 +84,16 @@ export const TaskEditingForm: React.FC<Props> = ({ task, toggleModal, modal, isE
         </header>
 
         <section className={"edit-form__description"}>
+          <label htmlFor="title">Description</label>
           <textarea
             maxLength={100}
-            className={"form__description-text"}
+            className={"edit-form__description-text"}
             {...register("description")}
             placeholder="Type a description"
           ></textarea>
         </section>
 
-        <footer className={"edit-form__footer"}>
+        <section className={"edit-form__tags"}>
           <div>
             <label htmlFor="progress">Progress: </label>
             <select id="progress" {...register("progress")}>
@@ -103,9 +112,10 @@ export const TaskEditingForm: React.FC<Props> = ({ task, toggleModal, modal, isE
               <option value="High">High</option>
             </select>
           </div>
-          <button className={"edit-form__add-button"} type="submit">
-            Done
-          </button>
+        </section>
+        <footer className={"edit-form__footer"}>
+          <button type="submit">DONE</button>
+          <button onClick={toggleModal}>CLOSE</button>
         </footer>
       </form>
     </>

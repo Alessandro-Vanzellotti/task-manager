@@ -1,17 +1,16 @@
 import { MdOutlineEdit } from 'react-icons/md';
 import { TaskType } from '../../types';
-import './DetailsModal.scss';
+import './TaskDetails.scss';
 import { Dispatch, SetStateAction } from 'react';
 
 type Props = {
   modal: boolean;
   toggleModal: () => void;
   task: TaskType;
-  isEditing: boolean;
   setIsEditing: Dispatch<SetStateAction<boolean>>;
 };
 
-export const DetailsModal: React.FC<Props> = ({modal, toggleModal, task, isEditing, setIsEditing  }) => {
+export const TaskDetails: React.FC<Props> = ({modal, toggleModal, task, setIsEditing  }) => {
 
     if(modal) {
       document.body.classList.add('active-modal');

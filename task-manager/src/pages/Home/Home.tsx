@@ -7,9 +7,9 @@ import { getAllTasks } from "../../api/api";
 import { Dashboard } from '../../components/Dashboard/Dashboard';
 import { Filters } from "../../components/Filters/Filters";
 import { NewTask } from "../../components/NewTask/NewTask";
-import { TaskModal } from "../../components/TaskModal/TaskModal";
 
 export default function Home() {
+
   const [taskList, setTaskList] = useState<TaskType[]>([]);
   const [taskFilter, setTaskFilter] = useState<string>('All');
   const [search, setSearch] = useState<string>("");
@@ -19,6 +19,26 @@ export default function Home() {
     const filteredTasks: TaskType[] = list;
     if (taskFilter === 'All') return list;
     return filteredTasks.filter(task => task.progress === taskFilter);
+  }
+
+  const filterTasks = (list: TaskType[]) => {
+    const filteredTasks: TaskType[] = list;
+    if (taskFilter === 'All') return list;
+    
+    if (taskFilter === 'Low' || 'Medium' || 'High') {
+      switch(taskFilter) {
+        case 'Low': return 
+      }
+      console.log(taskFilter);
+      console.log('true');
+      return filteredTasks.filter(task => task.priorityLevel === taskFilter);
+    }
+    if (taskFilter === 'Pending' || 'In progress' || 'Done') {
+      console.log(taskFilter);
+      return filteredTasks.filter(task => task.progress === taskFilter);
+    }
+    
+    return [];
   }
 
   useEffect(() => {
